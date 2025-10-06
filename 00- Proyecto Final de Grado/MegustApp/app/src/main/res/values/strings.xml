@@ -7,4 +7,16 @@
     <string name="login_button_text">Iniciar sesión</string>
     <string name="register_button_text">Registrarse</string>
     <string name="change_to_register_text">¿Aún no tienes cuenta? Registrate</string>
+    <string name="register_text">Registro</string>
+    <string name="restaurant_register_button_text">Restaurante</string>
+    <string name="client_register_button_text">Cliente</string>
+    <string name="client_register_activity_name_label">Nombre</string>
+    <string name="client_register_activity_telephone_label">Teléfono</string>
+    <string name="client_register_activity_city_label">Ciudad</string>
+    <string name="client_register_activity_email_label">Correo electrónico</string>
+    <string name="client_register_activity_name_input">Introduzca su nombre</string>
+    <string name="client_register_activity_telephone_input">Introduzca su teléfono</string>
+    <string name="client_register_activity_city_input">Introduzca su ciudad</string>
+    <string name="client_register_activity_email_input">Introduzca su correo</string>
+    <string name="client_register_activity_register_button_text">Registrar</string>
 </resources>
