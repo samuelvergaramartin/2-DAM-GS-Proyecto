@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MegustApp</string>
+    <string name="username_label_form">Usuario</string>
+    <string name="username_hint_form">Introduzca su usuario</string>
+    <string name="password_label_form">Contraseña</string>
+    <string name="password_hint_form">Introduzca su contraseña</string>
+    <string name="login_button_text">Iniciar sesión</string>
+    <string name="register_button_text">Registrarse</string>
+    <string name="change_to_register_text">¿Aún no tienes cuenta? Registrate</string>
+</resources>
