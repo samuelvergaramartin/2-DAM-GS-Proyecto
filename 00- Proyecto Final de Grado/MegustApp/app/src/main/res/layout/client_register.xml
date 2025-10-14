@@ -77,7 +77,6 @@
         android:inputType="textEmailAddress" />
 
 
-
     <Button
         android:id="@+id/login_button_login_activity"
         android:layout_width="200dp"
