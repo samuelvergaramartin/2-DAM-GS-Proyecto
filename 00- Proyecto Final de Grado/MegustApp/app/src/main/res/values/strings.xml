@@ -18,5 +18,13 @@
     <string name="client_register_activity_telephone_input">Introduzca su teléfono</string>
     <string name="client_register_activity_city_input">Introduzca su ciudad</string>
     <string name="client_register_activity_email_input">Introduzca su correo</string>
-    <string name="client_register_activity_register_button_text">Registrar</string>
+    <string name="register_button_text2">Registrar</string>
+    <string name="restaurant_register_activity_name_label">Nombre</string>
+    <string name="restaurant_register_activity_city_label">Ciudad</string>
+    <string name="restaurant_register_activity_menu_label">Menu</string>
+    <string name="restaurant_register_activity_street_label">Calle</string>
+    <string name="restaurant_register_activity_name_input">Introduzca el nombre del restaurante</string>
+    <string name="restaurant_register_activity_city_input">Introduzca la ciudad del restaurante</string>
+    <string name="restaurant_register_activity_menu_input">Introduzca el menu del restaurante</string>
+    <string name="restaurant_register_activity_street_input">Introduzca la calle del restaurante</string>
 </resources>
