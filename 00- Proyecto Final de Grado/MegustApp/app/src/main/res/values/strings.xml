@@ -7,6 +7,7 @@
     <string name="login_button_text">Iniciar sesión</string>
     <string name="register_button_text">Registrarse</string>
     <string name="change_to_register_text">¿Aún no tienes cuenta? Registrate</string>
+    <string name="change_to_login_text">¿Ya tienes una cuenta? Inicia sesión</string>
     <string name="register_text">Registro</string>
     <string name="restaurant_register_button_text">Restaurante</string>
     <string name="client_register_button_text">Cliente</string>

@@ -1,0 +1,58 @@
+{
+  "Cliente 1": {
+    "id": 1,
+    "nombre": "Pepe",
+    "telefono": "123456789",
+    "numero_de_reseñas": 0,
+    "ciudad": "Málaga"
+  },
+  "Cliente 2": {
+    "id": 2,
+    "nombre": "Alberto",
+    "telefono": "123456788",
+    "numero_de_reseñas": 0,
+    "ciudad": "Sevilla"
+  },
+  "Cliente 3": {
+    "id": 3,
+    "nombre": "Sergio",
+    "telefono": "123456787",
+    "numero_de_reseñas": 0,
+    "ciudad": "Madrid"
+  },
+  "Cliente 4": {
+    "id": 4,
+    "nombre": "Alba",
+    "telefono": "123456786",
+    "numero_de_reseñas": 0,
+    "ciudad": "Lisboa"
+  },
+  "Cliente 5": {
+    "id": 5,
+    "nombre": "Luis",
+    "telefono": "123456785",
+    "numero_de_reseñas": 0,
+    "ciudad": "Barcelona"
+  },
+  "Cliente 6": {
+    "id": 6,
+    "nombre": "Pablo",
+    "telefono": "123456784",
+    "numero_de_reseñas": 0,
+    "ciudad": "Córdoba"
+  },
+  "Cliente 7": {
+    "id": 7,
+    "nombre": "María",
+    "telefono": "123456783",
+    "numero_de_reseñas": 0,
+    "ciudad": "Granada"
+  },
+  "Cliente 8": {
+    "id": 8,
+    "nombre": "Antonio",
+    "telefono": "123456782",
+    "numero_de_reseñas": 0,
+    "ciudad": "Almería"
+  }
+}

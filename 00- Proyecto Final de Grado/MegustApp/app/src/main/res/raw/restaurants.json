@@ -1,0 +1,77 @@
+{
+  "Restaurante A": {
+    "id": 1,
+    "nombre": "Restaruante A",
+    "telefono": "123456789",
+    "ciudad": "Málaga",
+    "Calle": "Don Sapo",
+    "menu": [
+      {
+        "id": 1,
+        "nombre": "Plato 1",
+        "precio": "10 €",
+        "ingredientes": ["Patata", "Ajo", "Cebolla"]
+      }
+    ]
+  },
+  "Restaurante B": {
+    "id": 2,
+    "nombre": "Restaruante B",
+    "telefono": "123456788",
+    "ciudad": "Madrid",
+    "Calle": "Princesa de la reina",
+    "menu": [
+      {
+        "id": 1,
+        "nombre": "Plato 1",
+        "precio": "15 €",
+        "ingredientes": ["Tomate", "Ajo", "Cebolla"]
+      }
+    ]
+  },
+  "Restaurante C": {
+    "id": 3,
+    "nombre": "Restaruante C",
+    "telefono": "123456787",
+    "ciudad": "Málaga",
+    "Calle": "Sillita de la reina",
+    "menu": [
+      {
+        "id": 1,
+        "nombre": "Plato 1",
+        "precio": "20 €",
+        "ingredientes": ["Patata", "Bacalao", "Tomate"]
+      }
+    ]
+  },
+  "Restaurante D": {
+    "id": 4,
+    "nombre": "Restaruante D",
+    "telefono": "123456786",
+    "ciudad": "Sevilla",
+    "Calle": "Alfa",
+    "menu": [
+      {
+        "id": 1,
+        "nombre": "Plato 1",
+        "precio": "10 €",
+        "ingredientes": ["Conejo", "Sapo", "Sal"]
+      }
+    ]
+  },
+  "Restaurante E": {
+    "id": 5,
+    "nombre": "Restaruante E",
+    "telefono": "123456785",
+    "ciudad": "Málaga",
+    "Calle": "Juan Carlos 1",
+    "menu": [
+      {
+        "id": 1,
+        "nombre": "Plato 1",
+        "precio": "19 €",
+        "ingredientes": ["Lechuga", "Ajo", "Cebolla", "Tomate"]
+      }
+    ]
+  }
+}
