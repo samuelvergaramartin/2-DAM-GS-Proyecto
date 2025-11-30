@@ -4,7 +4,7 @@
     android:id="@+id/login_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".Login">
 
@@ -14,54 +14,53 @@
         android:layout_gravity="center"
         android:src="@drawable/logo" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/username_label_form"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30sp" />
-
     <EditText
-        android:id="@+id/username_input_login"
+        android:id="@+id/usuario_login"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="@string/username_hint_form" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/password_label_form"
+        android:textColor="@color/textOnDark"
+        android:textColorHint="@color/textOnDark"
+        android:background="@drawable/edit_text"
+        android:hint="@string/usuario"
         android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:padding="10dp"
+        android:backgroundTintMode="add"
+        android:layout_marginBottom="10dp"/>
 
     <EditText
-        android:id="@+id/password_input_login"
-        android:layout_width="220dp"
+        android:id="@+id/clave_login"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="@string/password_hint_form"
-        android:inputType="textPassword" />
+        android:hint="@string/clave"
+        android:textColorHint="@color/textOnDark"
+        android:textColor="@color/textOnDark"
+        android:background="@drawable/edit_text"
+        android:backgroundTintMode="add"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:inputType="textPassword"
+        android:layout_marginBottom="40dp"/>
 
     <Button
-        android:id="@+id/login_button_login_activity"
+        android:id="@+id/boton_iniciar_sesion_login"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/white"
-        android:text="@string/login_button_text"
+        android:backgroundTint="@color/accent"
+        android:textColor="@color/textSecondary"
+        android:text="@string/iniciar_sesion"
         android:textSize="20sp"
         android:layout_margin="10dp"
         android:layout_gravity="center"/>
 
     <TextView
+        android:id="@+id/texto_registrarse_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/change_to_register_text"
+        android:text="@string/cambiar_a_registrarse"
         android:textStyle="italic|bold"
-        android:textColor="@color/black"
+        android:textColor="@color/textOnDark"
         android:layout_gravity="center"/>
 
 </LinearLayout>

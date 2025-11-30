@@ -6,7 +6,7 @@
     android:id="@+id/register_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorPrimary"
     tools:context=".Register">
 
     <ImageView
@@ -19,42 +19,51 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/register_text"
+        android:text="@string/tipo_registro"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/textOnDark"
         android:textAlignment="center"
         android:layout_marginBottom="10dp"/>
 
     <Button
-        android:id="@+id/restaurante_register_button"
+        android:id="@+id/boton_restaurante_register"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/white"
+        android:backgroundTint="@color/accent"
+        android:textColor="@color/textSecondary"
         android:text="@string/restaurant_register_button_text"
         android:textSize="20sp"
         android:layout_margin="10dp"
         android:layout_gravity="center"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="o"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/textOnDark"
+        android:textAlignment="center"/>
+
     <Button
-        android:id="@+id/client_register_button"
+        android:id="@+id/boton_cliente_register"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/client_register_button_text"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/white"
+        android:backgroundTint="@color/accent"
+        android:textColor="@color/textSecondary"
         android:layout_margin="10dp"
         android:textSize="20sp"
         android:layout_gravity="center"/>
 
     <TextView
-        android:id="@+id/change_to_login_text"
+        android:id="@+id/texto_iniciar_sesion_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/change_to_login_text"
+        android:text="@string/cambiar_a_iniciar_sesion"
         android:textStyle="italic|bold"
-        android:textColor="@color/black"
+        android:textColor="@color/textOnDark"
         android:layout_gravity="center"/>
 
 </LinearLayout>

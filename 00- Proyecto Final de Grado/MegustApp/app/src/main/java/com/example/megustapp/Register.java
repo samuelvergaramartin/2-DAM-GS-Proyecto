@@ -1,5 +1,6 @@
 package com.example.megustapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -25,22 +30,49 @@ public class Register extends AppCompatActivity {
             return insets;
         });
 
-        final TextView changeToLoginText = findViewById(R.id.change_to_login_text);
-        final Button restaurantRegisterButton = findViewById(R.id.restaurante_register_button);
-        final Button clientRegisterButton = findViewById(R.id.client_register_button);
+        final TextView changeToLoginText = findViewById(R.id.texto_iniciar_sesion_register);
+        final Button restaurantRegisterButton = findViewById(R.id.boton_restaurante_register);
+        final Button clientRegisterButton = findViewById(R.id.boton_cliente_register);
+
+        ActivityResultLauncher resultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK) {
+                            Intent intent = result.getData();
+                            if(intent != null) {
+                                Bundle extras = intent.getExtras();
+                                if(extras.getBoolean("cerrar_sesion")) {
+                                    finish();
+                                }
+                            }
+                        }
+                    }
+                }
+        );
 
         changeToLoginText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent loginActivity = new Intent(Register.this, Login.class);
-                startActivity(loginActivity);
+                resultLauncher.launch(loginActivity);
             }
         });
 
         restaurantRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Intent restaurantRegisterActivity = new Intent(Register.this, RestaurantRegister.class);
+                resultLauncher.launch(restaurantRegisterActivity);
+            }
+        });
+
+        clientRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent clientRegisterActivity = new Intent(Register.this, ClientRegister.class);
+                resultLauncher.launch(clientRegisterActivity);
             }
         });
     }

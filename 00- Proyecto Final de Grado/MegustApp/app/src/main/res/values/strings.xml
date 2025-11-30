@@ -28,4 +28,23 @@
     <string name="restaurant_register_activity_city_input">Introduzca la ciudad del restaurante</string>
     <string name="restaurant_register_activity_menu_input">Introduzca el menu del restaurante</string>
     <string name="restaurant_register_activity_street_input">Introduzca la calle del restaurante</string>
+
+    <!--Nuevos strings a partir de las modificaciones del 29/11/2025-->
+    <string name="usuario">Usuario</string>
+    <string name="clave">Contraseña</string>
+    <string name="confirmar_clave">Confirmar contraseña</string>
+    <string name="telefono">Teléfono</string>
+    <string name="correo">Correo Electrónico</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="calle">Calle</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="tipo_registro">Registrarse como</string>
+    <string name="cambiar_a_registrarse">¿Aún no tienes cuenta? Registrate</string>
+    <string name="cambiar_a_iniciar_sesion">¿Ya tienes una cuenta? Inicia sesión</string>
+    <string name="volver_atras">Volver atrás</string>
+    <string name="nuevo_cliente">Nuevo cliente</string>
+    <string name="nuevo_restaurante">Nuevo restaurante</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="finalizar_registro">Finalizar registro</string>
 </resources>

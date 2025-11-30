@@ -1,0 +1,8 @@
+El botón "Crear reseña" tiene que aparecer bien visible nada más entrar al perfil del restaurante.
+
+Entre "Crear reseña" y el teléfono aparecerá la puntuación media del restaurante.
+De los datos del restaurante, el teléfono tiene que aparecer lo primero.
+
+En la pantalla "Restaurantes" añadir la puntuación media de cada restaurante.
+
+Nuestro botón de ajustes de Restaurantes y usuarios irá en la esquina superior derecha 
