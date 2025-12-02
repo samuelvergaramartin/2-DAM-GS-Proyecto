@@ -1,5 +1,7 @@
 package com.example.megustapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,6 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -28,10 +34,32 @@ public class RestaurantRegister2 extends AppCompatActivity {
         final Button botonSiguiente = findViewById(R.id.boton_siguiente_restaurant_register2);
         final TextView textoVolverAtras = findViewById(R.id.texto_volver_atras_restaurant_register2);
 
+        ActivityResultLauncher resultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == Activity.RESULT_OK) {
+                            Intent intent = result.getData();
+                            if(intent != null) {
+                                Bundle extras = intent.getExtras();
+                                if(extras.getBoolean("cerrar_sesion")) {
+                                    Intent resultado = new Intent();
+                                    resultado.putExtra("cerrar_sesion", true);
+                                    setResult(RESULT_OK, resultado);
+                                    finish();
+                                }
+                            }
+                        }
+                    }
+                }
+        );
+
         botonSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RestaurantRegister2.this, "Accediendo a la siguiente parte del formulario...", Toast.LENGTH_SHORT).show();
+                Intent restaurantRegister3Activity = new Intent(RestaurantRegister2.this, RestaurantRegister3.class);
+                resultLauncher.launch(restaurantRegister3Activity);
             }
         });
 
