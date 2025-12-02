@@ -16,10 +16,22 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nuevo_restaurante"
+        android:text="@string/menu"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/accentAlt"
         android:textAlignment="center"/>
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="5dp"
+        android:background="@color/accentAlt"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <ListView
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
