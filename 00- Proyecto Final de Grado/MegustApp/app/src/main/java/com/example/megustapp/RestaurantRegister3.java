@@ -1,7 +1,10 @@
 package com.example.megustapp;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,9 +32,23 @@ public class RestaurantRegister3 extends AppCompatActivity {
 
         final ArrayList<Plato> platos = new ArrayList<>();
         platos.add(new Plato("Espetos de sardinas", 12));
-        final ListView menu = findViewById(R.id.menu);
+        final ListView menu = findViewById(R.id.menu_restaurant_register3);
         final EditMenuAdapter adaptador = new EditMenuAdapter(this, platos);
 
         menu.setAdapter(adaptador);
+
+        menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position != parent.getCount() - 1) {
+
+                }
+                else {
+                    platos.add(position,new Plato("Nuevo plato", 10));
+                    menu.setAdapter(adaptador);
+                    Toast.makeText(RestaurantRegister3.this, "Añadido", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

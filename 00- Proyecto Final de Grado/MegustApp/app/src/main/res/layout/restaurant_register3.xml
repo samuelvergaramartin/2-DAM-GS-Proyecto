@@ -30,8 +30,30 @@
         android:layout_marginBottom="20dp"/>
 
     <ListView
-        android:id="@+id/menu"
+        android:id="@+id/menu_restaurant_register3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="300dp"/>
+
+    <ProgressBar
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:max="3"
+        android:progress="3"
+        android:progressTint="@color/accentAlt"
+        android:progressBackgroundTint="@color/colorSecondary"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/boton_finalizar_registro_restaurant_register3"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/accent"
+        android:textColor="@color/textSecondary"
+        android:text="@string/finalizar_registro"
+        android:textSize="20sp"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
