@@ -1,5 +1,6 @@
 package com.example.megustapp;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,8 +44,10 @@ public class RestaurantRegister3 extends AppCompatActivity {
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
-                    public void onActivityResult(ActivityResult o) {
-                                      
+                    public void onActivityResult(ActivityResult resultado) {
+                        if(resultado.getResultCode() == Activity.RESULT_OK) {
+                            
+                        }
                     }
                 }
         );
