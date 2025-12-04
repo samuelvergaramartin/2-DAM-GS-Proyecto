@@ -7,6 +7,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -34,6 +38,16 @@ public class RestaurantRegister3 extends AppCompatActivity {
         platos.add(new Plato("Espetos de sardinas", 12));
         final ListView menu = findViewById(R.id.menu_restaurant_register3);
         final EditMenuAdapter adaptador = new EditMenuAdapter(this, platos);
+
+        ActivityResultLauncher resultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult o) {
+                                      
+                    }
+                }
+        );
 
         menu.setAdapter(adaptador);
 

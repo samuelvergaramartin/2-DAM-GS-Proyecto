@@ -49,4 +49,7 @@
     <string name="finalizar_registro">Finalizar registro</string>
     <string name="menu">Menu</string>
     <string name="nuevo_plato">Nuevo plato</string>
+    <string name="nombre_del_plato">Nombre del plato</string>
+    <string name="escribir_ingredientes">Escriba aquí los ingredientes del plato</string>
+    <string name="registrar_plato">Registrar plato</string>
 </resources>
