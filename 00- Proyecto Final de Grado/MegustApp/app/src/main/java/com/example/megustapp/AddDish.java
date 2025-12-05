@@ -27,6 +27,7 @@ public class AddDish extends AppCompatActivity {
         });
 
         final EditText nombreDelPlato = findViewById(R.id.nombre_del_plato_add_dish);
+        final EditText precioDelPlato = findViewById(R.id.precio_add_dish);
         final EditText ingredientes = findViewById(R.id.ingredientes_del_plato_add_dish);
         final Button botonRegistrarPlato = findViewById(R.id.boton_registrar_plato_add_dish);
         final TextView textoVolverAtras = findViewById(R.id.texto_volver_atras_add_dish);
@@ -44,6 +45,7 @@ public class AddDish extends AppCompatActivity {
             public void onClick(View v) {
                 Intent resultado = new Intent();
                 resultado.putExtra("nombre_plato", nombreDelPlato.getText().toString());
+                resultado.putExtra("precio_plato", precioDelPlato.getText().toString());
                 resultado.putExtra("ingredientes", ingredientes.getText().toString());
                 setResult(RESULT_OK, resultado);
                 finish();

@@ -1,7 +1,11 @@
 package com.example.megustapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -12,6 +16,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -25,6 +30,14 @@ import java.util.ArrayList;
 public class RestaurantRegister3 extends AppCompatActivity {
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.edit_menu_context_menu, menu);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -36,7 +49,6 @@ public class RestaurantRegister3 extends AppCompatActivity {
         });
 
         final ArrayList<Plato> platos = new ArrayList<>();
-        platos.add(new Plato("Espetos de sardinas", 12));
         final ListView menu = findViewById(R.id.menu_restaurant_register3);
         final EditMenuAdapter adaptador = new EditMenuAdapter(this, platos);
 
@@ -46,7 +58,21 @@ public class RestaurantRegister3 extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult resultado) {
                         if(resultado.getResultCode() == Activity.RESULT_OK) {
-                            
+                            Intent intent = resultado.getData();
+                            if(intent != null) {
+                                Bundle datos = intent.getExtras();
+                                if(datos != null) {
+                                    String nombrePlato = datos.getString("nombre_plato");
+                                    double precioPlato = Double.parseDouble(datos.getString("precio_plato"));
+                                    String ingredientes = datos.getString("ingredientes");
+                                    platos.add(platos.size() - 1, new Plato(nombrePlato, precioPlato));
+                                    menu.setAdapter(adaptador);
+                                    View plato = adaptador.getView(platos.size() - 2, null, menu);
+                                    Toast.makeText(RestaurantRegister3.this, "Plato " + plato , Toast.LENGTH_SHORT).show();
+                                    plato.setBackgroundColor(getResources().getColor(R.color.error));
+                                    registerForContextMenu(plato);
+                                }
+                            }
                         }
                     }
                 }
@@ -61,11 +87,16 @@ public class RestaurantRegister3 extends AppCompatActivity {
 
                 }
                 else {
-                    platos.add(position,new Plato("Nuevo plato", 10));
-                    menu.setAdapter(adaptador);
-                    Toast.makeText(RestaurantRegister3.this, "Añadido", Toast.LENGTH_SHORT).show();
+                    Intent addDishActivity = new Intent(RestaurantRegister3.this, AddDish.class);
+                    resultLauncher.launch(addDishActivity);
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        return super.onContextItemSelected(item);
     }
 }
