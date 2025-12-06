@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MegustApp">
         <activity
+            android:name=".MainActivityClient"
+            android:exported="false" />
+        <activity
             android:name=".AddDish"
             android:exported="false" />
         <activity

@@ -3,6 +3,7 @@ package com.example.megustapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -67,10 +68,15 @@ public class RestaurantRegister3 extends AppCompatActivity {
                                     String ingredientes = datos.getString("ingredientes");
                                     platos.add(platos.size() - 1, new Plato(nombrePlato, precioPlato));
                                     menu.setAdapter(adaptador);
-                                    View plato = adaptador.getView(platos.size() - 2, null, menu);
-                                    Toast.makeText(RestaurantRegister3.this, "Plato " + plato , Toast.LENGTH_SHORT).show();
-                                    plato.setBackgroundColor(getResources().getColor(R.color.error));
-                                    registerForContextMenu(plato);
+                                    adaptador.getViews().clear();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            for(View plato : adaptador.getViews()) {
+                                                registerForContextMenu(plato);
+                                            }
+                                        }
+                                    }, 1000);
                                 }
                             }
                         }
@@ -83,10 +89,7 @@ public class RestaurantRegister3 extends AppCompatActivity {
         menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position != parent.getCount() - 1) {
-
-                }
-                else {
+                if(position == parent.getCount() - 1) {
                     Intent addDishActivity = new Intent(RestaurantRegister3.this, AddDish.class);
                     resultLauncher.launch(addDishActivity);
                 }
@@ -96,7 +99,9 @@ public class RestaurantRegister3 extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
+        Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
+        Toast.makeText(this, "View: " + item.getActionView(), Toast.LENGTH_SHORT).show();
         return super.onContextItemSelected(item);
     }
 }

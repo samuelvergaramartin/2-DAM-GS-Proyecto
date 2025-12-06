@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class EditMenuAdapter extends ArrayAdapter<Plato> {
     private ArrayList<Plato> platos;
+    private ArrayList<View> views = new ArrayList<>();
 
     public EditMenuAdapter(@NonNull Context context, ArrayList<Plato> platos) {
         super(context, R.layout.plato, platos);
@@ -33,6 +34,8 @@ public class EditMenuAdapter extends ArrayAdapter<Plato> {
         TextView nombre = elemento.findViewById(R.id.nombre_del_plato);
         TextView precio = elemento.findViewById(R.id.precio_del_plato);
 
+        views.add(elemento);
+
         if((platos.size() >= 1 && position < platos.size() - 1)) {
             nombre.setText(platos.get(position).getNombre());
             precio.setText(platos.get(position).getPrecio() + " €");
@@ -40,8 +43,13 @@ public class EditMenuAdapter extends ArrayAdapter<Plato> {
         else {
             nombre.setText("Añadir plato");
             precio.setText("+");
+            views.remove(elemento);
         }
 
         return elemento;
+    }
+
+    public ArrayList<View> getViews() {
+        return views;
     }
 }
