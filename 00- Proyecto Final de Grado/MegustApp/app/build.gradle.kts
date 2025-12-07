@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.megustapp"
+    namespace = "com.sam170703dev.megustapp"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.megustapp"
+        applicationId = "com.sam170703dev.megustapp"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

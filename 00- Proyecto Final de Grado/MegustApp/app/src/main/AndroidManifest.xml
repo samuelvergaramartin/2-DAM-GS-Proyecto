@@ -12,34 +12,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MegustApp">
         <activity
-            android:name=".MainActivityClient"
+            android:name=".actividades.MainActivityClient"
             android:exported="false" />
         <activity
-            android:name=".AddDish"
+            android:name=".actividades.AddDish"
             android:exported="false" />
         <activity
-            android:name=".RestaurantRegister3"
+            android:name=".actividades.RestaurantRegister3"
             android:exported="false" />
         <activity
-            android:name=".RestaurantRegister2"
+            android:name=".actividades.RestaurantRegister2"
             android:exported="false" />
         <activity
-            android:name=".ClientRegister2"
+            android:name=".actividades.ClientRegister2"
             android:exported="false" />
         <activity
-            android:name=".RestaurantRegister"
+            android:name=".actividades.RestaurantRegister"
             android:exported="false" />
         <activity
-            android:name=".ClientRegister"
+            android:name=".actividades.ClientRegister"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".actividades.Register"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".actividades.Login"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".actividades.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
