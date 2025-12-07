@@ -9,7 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -52,6 +54,8 @@ public class RestaurantRegister3 extends AppCompatActivity {
         final ArrayList<Plato> platos = new ArrayList<>();
         final ListView menu = findViewById(R.id.menu_restaurant_register3);
         final EditMenuAdapter adaptador = new EditMenuAdapter(this, platos);
+        final Button botonFinalizarRegistro = findViewById(R.id.boton_finalizar_registro_restaurant_register3);
+        final TextView textoVolverAtras = findViewById(R.id.texto_volver_atras_restaurant_register3);
 
         ActivityResultLauncher resultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -93,6 +97,21 @@ public class RestaurantRegister3 extends AppCompatActivity {
                     Intent addDishActivity = new Intent(RestaurantRegister3.this, AddDish.class);
                     resultLauncher.launch(addDishActivity);
                 }
+            }
+        });
+
+        botonFinalizarRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(RestaurantRegister3.this, "Próximamente...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        textoVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CANCELED);
+                finish();
             }
         });
     }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/opc_restaurant_recview">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/golden_rectangle">
+
+        <ImageView
+            android:id="@+id/imagen_restaurante_opc_restaurant_recview"
+            android:layout_width="94dp"
+            android:layout_height="94dp"
+            android:src="@drawable/logo"
+            android:paddingLeft="4dp"
+            android:paddingTop="4dp"/>
+
+        <TextView
+            android:id="@+id/nombre_restaurante_opc_restaurant_recview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textOnDark"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:gravity="center"/>
+    </LinearLayout>
+</LinearLayout>

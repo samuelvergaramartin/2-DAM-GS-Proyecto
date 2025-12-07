@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/opc_recargar_pagina_restaurant_list_menu"
+        android:title="Recargar página"/>
+    <item
+        android:id="@+id/opc_buscar_restaurant_list_menu"
+        android:title="Buscar"
+        android:icon="@drawable/baseline_search_24"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/opc_cerrar_sesion_restaurant_list_menu"
+        android:title="Cerrar sesión" />
+</menu>

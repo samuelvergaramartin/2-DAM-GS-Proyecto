@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/nombre_del_plato"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:text="Ensalada de pasta"
@@ -16,9 +16,10 @@
 
     <TextView
         android:id="@+id/precio_del_plato"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="20 €"
+        android:textColor="@color/colorPrimary"
         android:textSize="25sp"
         android:layout_margin="10dp"/>
 </LinearLayout>

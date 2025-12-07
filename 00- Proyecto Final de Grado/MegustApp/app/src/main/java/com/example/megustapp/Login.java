@@ -19,6 +19,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.megustapp.clases.UserAccount;
+import com.example.megustapp.clases.cuentas.ClientAccount;
+import com.example.megustapp.clases.cuentas.RestaurantAccount;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -33,9 +40,17 @@ public class Login extends AppCompatActivity {
         });
 
         final EditText usernameInput = findViewById(R.id.usuario_login);
+        final EditText nombreUsuarioInput = findViewById(R.id.usuario_login);
         final EditText passwordInput = findViewById(R.id.clave_login);
+        final EditText claveInput = findViewById(R.id.clave_login);
         final Button loginButton = findViewById(R.id.boton_iniciar_sesion_login);
         final TextView textoRegistrarse = findViewById(R.id.texto_registrarse_login);
+        final ClientAccount cliente = new ClientAccount("samuel", "root");
+        final RestaurantAccount restaurante = new RestaurantAccount("restaurante", "root");
+        final Map<String, UserAccount> cuentas = new HashMap<>();
+
+        cuentas.put("samuel", cliente);
+        cuentas.put("restaurante", restaurante);
 
         ActivityResultLauncher resultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -86,7 +101,8 @@ public class Login extends AppCompatActivity {
 
                 if(!credencialesValidas) Toast.makeText(Login.this, "Credenciales inválidas", Toast.LENGTH_SHORT).show();
                 else {
-                    Toast.makeText(Login.this, "Iniciando sesión...", Toast.LENGTH_SHORT).show();
+                    Intent mainActivityClient = new Intent(Login.this, MainActivityClient.class);
+                    resultLauncher.launch(mainActivityClient);
                 }
             }
         });

@@ -7,6 +7,18 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_activity_main_client"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        style="@style/ThemeOverlay.AppCompat.Dark"
+        app:titleTextColor="@color/colorPrimary"
+        android:foregroundTint="@color/colorPrimary"
+        android:background="@color/accent"
+        app:title="@string/restaurantes"
+        android:elevation="4dp"/>
+
     <FrameLayout
         android:id="@+id/framelayout_activity_main_client"
         android:layout_width="match_parent"
@@ -21,4 +33,5 @@
         app:itemTextColor="@color/black"
         app:itemIconTint="@color/black"
         app:menu="@menu/navbar_client"/>
+
 </LinearLayout>

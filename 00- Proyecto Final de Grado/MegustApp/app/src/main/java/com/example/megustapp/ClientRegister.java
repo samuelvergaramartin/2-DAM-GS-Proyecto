@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -52,12 +53,21 @@ public class ClientRegister extends AppCompatActivity {
         );
 
         Button botonRegistrarse = findViewById(R.id.boton_siguiente_client_register);
+        TextView textoVolverAtras = findViewById(R.id.texto_volver_atras_client_register);
 
         botonRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent clientRegister2Activity = new Intent(ClientRegister.this, ClientRegister2.class);
                 resultLauncher.launch(clientRegister2Activity);
+            }
+        });
+
+        textoVolverAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CANCELED);
+                finish();
             }
         });
     }
