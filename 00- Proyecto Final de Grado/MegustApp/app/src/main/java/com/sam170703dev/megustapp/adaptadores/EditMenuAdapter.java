@@ -21,7 +21,7 @@ public class EditMenuAdapter extends ArrayAdapter<Plato> {
 
     public EditMenuAdapter(@NonNull Context context, ArrayList<Plato> platos) {
         super(context, R.layout.plato, platos);
-        platos.add(new Plato("añadir plato", 0));
+        platos.add(new Plato("añadir plato", 0, null));
         this.platos = platos;
     }
 

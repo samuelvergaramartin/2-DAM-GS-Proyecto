@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MegustApp">
         <activity
+            android:name=".actividades.MainActivityRestaurant"
+            android:exported="false" />
+        <activity
+            android:name=".actividades.RestaurantInfo"
+            android:exported="false" />
+        <activity
             android:name=".actividades.MainActivityClient"
             android:exported="false" />
         <activity

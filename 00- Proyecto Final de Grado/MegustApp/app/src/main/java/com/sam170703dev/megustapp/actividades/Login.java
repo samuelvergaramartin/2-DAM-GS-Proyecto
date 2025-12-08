@@ -23,6 +23,7 @@ import com.sam170703dev.megustapp.R;
 import com.sam170703dev.megustapp.clases.UserAccount;
 import com.sam170703dev.megustapp.clases.cuentas.ClientAccount;
 import com.sam170703dev.megustapp.clases.cuentas.RestaurantAccount;
+import com.sam170703dev.megustapp.enums.UserAccountTypes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,9 +41,7 @@ public class Login extends AppCompatActivity {
             return insets;
         });
 
-        final EditText usernameInput = findViewById(R.id.usuario_login);
         final EditText nombreUsuarioInput = findViewById(R.id.usuario_login);
-        final EditText passwordInput = findViewById(R.id.clave_login);
         final EditText claveInput = findViewById(R.id.clave_login);
         final Button loginButton = findViewById(R.id.boton_iniciar_sesion_login);
         final TextView textoRegistrarse = findViewById(R.id.texto_registrarse_login);
@@ -78,32 +77,40 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean credencialesValidas = true;
-                if(usernameInput.getText().toString().isEmpty()) {
-                    usernameInput.setError("Este campo es obligatorio.");
+                UserAccount cuenta = cuentas.get(nombreUsuarioInput.getText().toString());
+                if(nombreUsuarioInput.getText().toString().isEmpty()) {
+                    nombreUsuarioInput.setError("Este campo es obligatorio.");
                     credencialesValidas = false;
                 }
                 else {
-                    if(!usernameInput.getText().toString().equals("root")) {
-                        usernameInput.setError("Nombre de usuario inválido");
+                    if(cuenta == null) {
+                        nombreUsuarioInput.setError("El usuario introducido no existe.");
                         credencialesValidas = false;
                     }
                 }
 
-                if(passwordInput.getText().toString().isEmpty()) {
-                    passwordInput.setError("Este campo es obligatorio.");
+                if(claveInput.getText().toString().isEmpty()) {
+                    claveInput.setError("Este campo es obligatorio.");
                     credencialesValidas = false;
                 }
                 else {
-                    if(!passwordInput.getText().toString().equals("root")) {
-                        passwordInput.setError("Contraseña incorrecta.");
+                    if(cuenta != null && !cuenta.getClave().equals(claveInput.getText().toString())) {
+                        claveInput.setError("Contraseña incorrecta.");
                         credencialesValidas = false;
                     }
                 }
 
                 if(!credencialesValidas) Toast.makeText(Login.this, "Credenciales inválidas", Toast.LENGTH_SHORT).show();
                 else {
-                    Intent mainActivityClient = new Intent(Login.this, MainActivityClient.class);
-                    resultLauncher.launch(mainActivityClient);
+                    Intent actividad;
+                    if(cuenta.getTIPO().equals(UserAccountTypes.CLIENT)) {
+                        actividad = new Intent(Login.this, MainActivityClient.class);
+                    }
+                    else {
+                        actividad = new Intent(Login.this, MainActivityRestaurant.class);
+                    }
+
+                    resultLauncher.launch(actividad);
                 }
             }
         });

@@ -68,20 +68,28 @@ public class RestaurantRegister3 extends AppCompatActivity {
                             if(intent != null) {
                                 Bundle datos = intent.getExtras();
                                 if(datos != null) {
-                                    String nombrePlato = datos.getString("nombre_plato");
-                                    double precioPlato = Double.parseDouble(datos.getString("precio_plato"));
-                                    String ingredientes = datos.getString("ingredientes");
-                                    platos.add(platos.size() - 1, new Plato(nombrePlato, precioPlato));
-                                    menu.setAdapter(adaptador);
-                                    adaptador.getViews().clear();
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            for(View plato : adaptador.getViews()) {
-                                                registerForContextMenu(plato);
+                                    if(datos.getBoolean("cerrar_sesion")) {
+                                        Intent resultadoActividad = new Intent();
+                                        resultadoActividad.putExtra("cerrar_sesion", true);
+                                        setResult(RESULT_OK, resultadoActividad);
+                                        finish();
+                                    }
+                                    else {
+                                        String nombrePlato = datos.getString("nombre_plato");
+                                        double precioPlato = Double.parseDouble(datos.getString("precio_plato"));
+                                        String ingredientes = datos.getString("ingredientes");
+                                        platos.add(platos.size() - 1, new Plato(nombrePlato, precioPlato, ingredientes));
+                                        menu.setAdapter(adaptador);
+                                        adaptador.getViews().clear();
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                for(View plato : adaptador.getViews()) {
+                                                    registerForContextMenu(plato);
+                                                }
                                             }
-                                        }
-                                    }, 1000);
+                                        }, 1000);
+                                    }
                                 }
                             }
                         }
@@ -104,7 +112,13 @@ public class RestaurantRegister3 extends AppCompatActivity {
         botonFinalizarRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RestaurantRegister3.this, "Próximamente...", Toast.LENGTH_SHORT).show();
+                if(platos.size() == 1) {
+                    Toast.makeText(RestaurantRegister3.this, "Debes añadir mínimo un plato.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent restaurantMainActivity = new Intent(RestaurantRegister3.this, MainActivityRestaurant.class);
+                    resultLauncher.launch(restaurantMainActivity);
+                }
             }
         });
 

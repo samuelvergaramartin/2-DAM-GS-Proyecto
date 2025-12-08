@@ -45,12 +45,29 @@ public class AddDish extends AppCompatActivity {
         botonRegistrarPlato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resultado = new Intent();
-                resultado.putExtra("nombre_plato", nombreDelPlato.getText().toString());
-                resultado.putExtra("precio_plato", precioDelPlato.getText().toString());
-                resultado.putExtra("ingredientes", ingredientes.getText().toString());
-                setResult(RESULT_OK, resultado);
-                finish();
+                boolean completado = true;
+
+                if(nombreDelPlato.getText().toString().isBlank()) {
+                    nombreDelPlato.setError("Este campo es obligatorio");
+                    completado = false;
+                }
+                if(precioDelPlato.getText().toString().isBlank()) {
+                    precioDelPlato.setError("Este campo es obligatorio");
+                    completado = false;
+                }
+                if(ingredientes.getText().toString().isBlank()) {
+                    ingredientes.setError("Este campo es obligatorio");
+                    completado = false;
+                }
+
+                if(completado) {
+                    Intent resultado = new Intent();
+                    resultado.putExtra("nombre_plato", nombreDelPlato.getText().toString());
+                    resultado.putExtra("precio_plato", precioDelPlato.getText().toString());
+                    resultado.putExtra("ingredientes", ingredientes.getText().toString());
+                    setResult(RESULT_OK, resultado);
+                    finish();
+                }
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.sam170703dev.megustapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.sam170703dev.megustapp.R;
+import com.sam170703dev.megustapp.actividades.MainActivityClient;
+import com.sam170703dev.megustapp.actividades.RestaurantInfo;
 import com.sam170703dev.megustapp.adaptadores.RestaurantListAdapter;
 import com.sam170703dev.megustapp.datos_adaptadores.Restaurant;
 
@@ -46,13 +49,14 @@ public class RestaurantListFragment extends Fragment {
         adaptador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Has seleccionado: " + restaurantes.get(recyclerView.getChildAdapterPosition(v)).getNombre(), Toast.LENGTH_SHORT).show();
+                Intent restaurantInfoActivity = new Intent(getContext(), RestaurantInfo.class);
+                restaurantInfoActivity.putExtra("nombre_restaurante", restaurantes.get(recyclerView.getChildAdapterPosition(v)).getNombre());
+                startActivity(restaurantInfoActivity);
             }
         });
 
         recyclerView.setAdapter(adaptador);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        //recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return view;
     }

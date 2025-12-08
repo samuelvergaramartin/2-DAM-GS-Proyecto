@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo" />
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/datos_restaurante"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/accentAlt"
+        android:textAlignment="center"/>
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="5dp"
+        android:background="@color/accentAlt"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="@color/accent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/ciudad_malaga"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="@color/accent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/calle_iesbelen"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="@color/accent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/telefono_iesbelen"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/boton_ver_ubicacion_data_restaurant_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ver_ubicacion"
+            android:backgroundTint="@color/success"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"/>
+
+        <Button
+            android:id="@+id/boton_llamar_data_restaurant_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/llamar"
+            android:backgroundTint="@color/warning"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"/>
+    </LinearLayout>
+
+</LinearLayout>

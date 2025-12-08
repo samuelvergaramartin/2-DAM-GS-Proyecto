@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
@@ -18,6 +20,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.sam170703dev.megustapp.R;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class RestaurantRegister2 extends AppCompatActivity {
 
@@ -32,6 +38,9 @@ public class RestaurantRegister2 extends AppCompatActivity {
             return insets;
         });
 
+        final EditText telefonoInput = findViewById(R.id.telefono_restaurant_register2);
+        final EditText ciudadInput = findViewById(R.id.ciudad_restaurant_register2);
+        final EditText calleInput = findViewById(R.id.calle_restaurant_register2);
         final Button botonSiguiente = findViewById(R.id.boton_siguiente_restaurant_register2);
         final TextView textoVolverAtras = findViewById(R.id.texto_volver_atras_restaurant_register2);
 
@@ -59,8 +68,41 @@ public class RestaurantRegister2 extends AppCompatActivity {
         botonSiguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent restaurantRegister3Activity = new Intent(RestaurantRegister2.this, RestaurantRegister3.class);
-                resultLauncher.launch(restaurantRegister3Activity);
+                boolean completado = true;
+
+                if(telefonoInput.getText().toString().isBlank()) {
+                    telefonoInput.setError("Este campo es obligatorio.");
+                    completado = false;
+                }
+                if(ciudadInput.getText().toString().isBlank()) {
+                    ciudadInput.setError("Este campo es obligatorio.");
+                    completado = false;
+                }
+                if(calleInput.getText().toString().isBlank()) {
+                    calleInput.setError("Este campo es obligatorio.");
+                    completado = false;
+                }
+
+                if(completado) {
+                    Set<Character> caracteres = new HashSet<>(Arrays.asList('1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+'));
+                    boolean caracteresInvalidosTel, caracteresInvalidosCiudad;
+                    caracteresInvalidosTel = tieneCaracteresInvalidos(telefonoInput.getText().toString(), caracteres, true);
+                    if(caracteresInvalidosTel) {
+                        telefonoInput.setError("El número de telefono contiene caracteres inválidos");
+                    }
+                    caracteresInvalidosCiudad = tieneCaracteresInvalidos(ciudadInput.getText().toString(), caracteres, false);
+                    if(caracteresInvalidosCiudad) {
+                        ciudadInput.setError("La ciudad introducida tiene caracteres inválidos.");
+                    }
+
+                    if(!caracteresInvalidosTel && !caracteresInvalidosCiudad) {
+                        Intent mainActivityClient = new Intent(RestaurantRegister2.this, RestaurantRegister3.class);
+                        resultLauncher.launch(mainActivityClient);
+                    }
+                }
+                else {
+                    Toast.makeText(RestaurantRegister2.this, "Todos los campos son obligatorios.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -72,4 +114,23 @@ public class RestaurantRegister2 extends AppCompatActivity {
             }
         });
     }
+    private boolean tieneCaracteresInvalidos(String cadena, Set<Character> caracteres, boolean validos) {
+        boolean caracteresInvalidos = false;
+        int i = 0;
+        if(validos) {
+            while (!caracteresInvalidos && i < cadena.length()) {
+                if(!caracteres.contains(cadena.charAt(i))) caracteresInvalidos = true;
+                i++;
+            }
+        }
+        else {
+            while (!caracteresInvalidos && i < cadena.length()) {
+                if(caracteres.contains(cadena.charAt(i))) caracteresInvalidos = true;
+                i++;
+            }
+        }
+
+        return caracteresInvalidos;
+    }
+
 }

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/opc_recargar_pagina_restaurant_list_menu"
-        android:title="Recargar página"/>
+        android:title="@string/recargar_pagina"/>
     <item
         android:id="@+id/opc_buscar_restaurant_list_menu"
-        android:title="Buscar"
-        android:icon="@drawable/baseline_search_24"
+        android:title="@string/buscar"
+        android:icon="@drawable/search"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/opc_cerrar_sesion_restaurant_list_menu"
-        android:title="Cerrar sesión" />
+        android:title="@string/cerrar_sesion" />
 </menu>

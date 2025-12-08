@@ -55,4 +55,26 @@
     <string name="precio">Precio</string>
     <string name="restaurantes">Restaurantes</string>
     <string name="proximamente">Próximamente...</string>
+    <string name="datos_restaurante">Datos del restaurante</string>
+    <string name="ciudad_malaga">Ciudad: Málaga</string>
+    <string name="calle_iesbelen">Calle: Avenida de Isaac Peral, 16</string>
+    <string name="telefono_iesbelen">Teléfono: +34951298425</string>
+    <string name="ver_ubicacion">Ver ubicación</string>
+    <string name="llamar">Llamar</string>
+    <string name="large_text">null</string>
+    <string name="restaurante">Restaurante</string>
+    <string name="ver_valoraciones">Ver reseñas</string>
+    <string name="modificar_menu">Modificar menu</string>
+    <string name="modificar_datos">Modificar datos</string>
+    <string name="valoraciones">Reseñas</string>
+    <string name="direccion">Dirección</string>
+    <string name="buscar">Buscar</string>
+    <string name="cuenta">Cuenta</string>
+    <string name="recargar_pagina">Recargar página</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="editar_plato">Editar plato</string>
+    <string name="eliminar_plato">Eliminar plato</string>
+    <string name="plato_2p">Plato: </string>
+    <string name="precio_2p">Precio: </string>
+    <string name="ingredientes_2p">Ingredientes: </string>
 </resources>

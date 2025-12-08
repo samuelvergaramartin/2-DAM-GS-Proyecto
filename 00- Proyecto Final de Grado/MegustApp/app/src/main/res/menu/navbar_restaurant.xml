@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/opc_menu_navbar_restaurant"
+        android:title="@string/menu"
+        android:icon="@drawable/menu"/>
+    <item
+        android:id="@+id/opc_reviews_navbar_restautant"
+        android:title="@string/valoraciones"
+        android:icon="@drawable/markdown"/>
+    <item
+        android:id="@+id/opc_location_navbar_restaurant"
+        android:title="@string/direccion"
+        android:icon="@drawable/location"/>
+    <item
+        android:id="@+id/opc_account_navbar_restaurant"
+        android:title="@string/cuenta"
+        android:icon="@drawable/account"/>
+</menu>
