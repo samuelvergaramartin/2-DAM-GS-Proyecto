@@ -2,6 +2,12 @@ drop database if exists MegustApp;
 create database MegustApp;
 use MegustApp;
 
+CREATE TABLE usuarios (
+    id int auto_increment PRIMARY KEY,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    contraseña VARCHAR(100) NOT NULL
+);
+
 create table clientes (
     id int auto_increment primary key,
     nombre varchar(50) not null,
@@ -26,22 +32,23 @@ create table restaurantes(
     plato int
 );
 
-create table valoraciones(
+create table valoraciones (
     id int auto_increment primary key,
-    nota int not null,
+    nota int not null check (nota >= 1 and nota <= 5),
     comentario text null
 );
 
-create table platos(
+create table platos (
     id int auto_increment primary key,
     nombre varchar(50) not null,
     precio float(3,2) not null,
     imagen longblob not null
 );
 
-create table ingredientes(
+create table ingredientes (
     id int auto_increment primary key,
-    nombre varchar(100) not null
+    nombre varchar(100) not null,
+    es_alergeno boolean not null default false
 );
 
 alter table clientes add constraint fk_valoracion foreign key (valoracion) references valoraciones(id);
