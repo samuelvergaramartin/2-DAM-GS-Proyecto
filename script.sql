@@ -1,6 +1,6 @@
-drop database if exists MegustApp;
-create database MegustApp;
-use MegustApp;
+-- drop database if exists MegustApp;
+-- create database MegustApp;
+-- use MegustApp;
 
 CREATE TABLE usuarios (
     id int auto_increment PRIMARY KEY,
@@ -9,7 +9,7 @@ CREATE TABLE usuarios (
 );
 
 create table clientes (
-    id int auto_increment primary key,
+	id int auto_increment primary key,
     nombre varchar(50) not null,
     ciudad varchar(50) not null,
     telefono varchar(15) not null,
