@@ -1,6 +1,6 @@
--- drop database if exists MegustApp;
--- create database MegustApp;
--- use MegustApp;
+drop database if exists MegustApp;
+create database MegustApp;
+use MegustApp;
 
 CREATE TABLE usuarios (
     id int auto_increment PRIMARY KEY,
