@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        HttpURLConnection
+        /*HttpURLConnection
         try {
-            URL url = new URL("https://orthocephalic-aprioristically-lyndsay.ngrok-free.dev/usuarios");
+            URL url = new URL("https://solenoidal-bloodlessly-nakita.ngrok-free.dev/usuarios");
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(httpsURLConnection.getInputStream());
             readStream(in)
@@ -49,13 +49,14 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        /*Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://orthocephalic-aprioristically-lyndsay.ngrok-free.dev/")
+        }*/
+        Retrofit retrofit = new Retrofit.Builder()
+                //.baseUrl("https://solenoidal-bloodlessly-nakita.ngrok-free.dev ")
+                .baseUrl("http://localhost:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        API api = retrofit.create(API.class);*/
+        API api = retrofit.create(API.class);
 
         /*api.getManufacturers().enqueue(new Callback<List<Manufacturer>>() {
             @Override
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-        /*api.getUsuarios().enqueue(new Callback<List<Usuario>>() {
+        api.getUsuarios().enqueue(new Callback<List<Usuario>>() {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
                 Log.i("API_RESPONSE", response.body().toString());
@@ -83,6 +84,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
                 Log.e("API_RESPONSE", "Ha fallado algo", t);
             }
-        });*/
+        });
     }
 }
