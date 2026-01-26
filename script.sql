@@ -1,6 +1,10 @@
+-- Creación de la base de datos
+
 drop database if exists MegustApp;
 create database MegustApp;
 use MegustApp;
+
+-- Creación de tablas y claves foráneas
 
 CREATE TABLE usuarios (
     id int auto_increment PRIMARY KEY,
@@ -40,7 +44,7 @@ create table valoraciones (
 create table platos (
     id int auto_increment primary key,
     nombre varchar(50) not null,
-    precio float(3,2) not null,
+    precio float not null,
     ruta_imagen varchar(2048) not null,
     restaurante int not null
 );
@@ -61,3 +65,51 @@ alter table platos add constraint fk_restaurante foreign key (restaurante) refer
 alter table valoraciones add constraint fk_cliente foreign key (cliente) references clientes(id);
 alter table plato_ingrediente add constraint fk_pi_plato foreign key (id_plato) references platos(id);
 alter table plato_ingrediente add constraint fk_pi_ingrediente foreign key(id_ingrediente) references ingredientes(id);
+
+-- Insercción de datos
+
+insert into usuarios (email, clave) values ("samuelvergaramartin@protonmail.com", "A123456a");
+insert into clientes (nombre, ciudad, telefono, numero_valoraciones, email, clave, ruta_foto_perfil) values (
+    "Samuel Vergara Martín",
+    "Málaga",
+    "+34722688078",
+    0,
+    "samuelvergaramartin@protonmail.com",
+    "A123456a",
+    "C://Users/anony/image.png"
+);
+insert into restaurantes (nombre, telefono, ciudad, calle, email, clave, ruta_foto_perfil) values (
+    "Restaurante 1",
+    "+34722688079",
+    "Málaga",
+    "Sillita de la reina",
+    "restaurante1@gmail.com",
+    "A123456a",
+    "C://Users/restaurante1/image.png"
+);
+insert into valoraciones (nota, comentario, cliente) values (
+    5,
+    "Muy buen restaurante, me ha encantado",
+    1
+);
+insert into platos (nombre, precio, ruta_imagen, restaurante) values (
+    "Macarrones con queso",
+    20,
+    "C://Users/restaurante1/platos/1/imagen.png",
+    1
+);
+insert into ingredientes (nombre, es_alergeno) values (
+    "Tomate",
+    false
+);
+insert into ingredientes (nombre, es_alergeno) values (
+    "Queso",
+    true
+);
+insert into ingredientes (nombre, es_alergeno) values (
+    "Macarrones",
+    true
+);
+insert into plato_ingrediente values (1, 1);
+insert into plato_ingrediente values (1, 2);
+insert into plato_ingrediente values (1, 3);
