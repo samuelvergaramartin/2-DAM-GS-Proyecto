@@ -38,7 +38,8 @@ create table valoraciones (
     id int auto_increment primary key,
     nota int not null check (nota >= 1 and nota <= 5),
     comentario text null,
-    cliente int not null
+    cliente int not null,
+    restaurante int not null
 );
 
 create table platos (
@@ -63,6 +64,7 @@ create table plato_ingrediente (
 
 alter table platos add constraint fk_restaurante foreign key (restaurante) references restaurantes(id);
 alter table valoraciones add constraint fk_cliente foreign key (cliente) references clientes(id);
+alter table valoraciones add constraint fk_restaurante foreign key (restaurante) references restaurantes(id);
 alter table plato_ingrediente add constraint fk_pi_plato foreign key (id_plato) references platos(id);
 alter table plato_ingrediente add constraint fk_pi_ingrediente foreign key(id_ingrediente) references ingredientes(id);
 
@@ -87,9 +89,10 @@ insert into restaurantes (nombre, telefono, ciudad, calle, email, clave, ruta_fo
     "A123456a",
     "C://Users/restaurante1/image.png"
 );
-insert into valoraciones (nota, comentario, cliente) values (
+insert into valoraciones (nota, comentario, cliente, restaurante) values (
     5,
     "Muy buen restaurante, me ha encantado",
+    1,
     1
 );
 insert into platos (nombre, precio, ruta_imagen, restaurante) values (

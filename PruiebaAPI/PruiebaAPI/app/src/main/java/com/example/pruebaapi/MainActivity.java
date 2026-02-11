@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         }*/
         Retrofit retrofit = new Retrofit.Builder()
                 //.baseUrl("https://solenoidal-bloodlessly-nakita.ngrok-free.dev ")
-                .baseUrl("http://localhost:8080/")
+                .baseUrl("http://192.168.0.27:3000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -72,16 +72,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-        api.getUsuarios().enqueue(new Callback<List<Usuario>>() {
+        /*api.getUsuarios().enqueue(new Callback<List<Usuario>>() {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
                 Log.i("API_RESPONSE", response.body().toString());
 
-                ((TextView) findViewById(R.id.lbl)).setText(response.body().get(0).getEmail());
+                ((TextView) findViewById(R.id.lbl)).setText(response.body().toString());
             }
 
             @Override
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                Log.e("API_RESPONSE", "Ha fallado algo", t);
+            }
+        });*/
+
+        api.getUsuarioById(1).enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                Log.i("API_RESPONSE", response.body().getEmail());
+
+                ((TextView) findViewById(R.id.lbl)).setText(response.body().getEmail().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
                 Log.e("API_RESPONSE", "Ha fallado algo", t);
             }
         });
