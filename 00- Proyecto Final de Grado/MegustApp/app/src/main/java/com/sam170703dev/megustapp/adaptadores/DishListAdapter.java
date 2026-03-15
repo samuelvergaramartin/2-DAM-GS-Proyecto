@@ -11,7 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.sam170703dev.megustapp.R;
-import com.sam170703dev.megustapp.datos_adaptadores.Plato;
+import com.sam170703dev.megustapp.entidades.Ingrediente;
+import com.sam170703dev.megustapp.entidades.Plato;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,15 @@ public class DishListAdapter extends ArrayAdapter<Plato> {
         precio.setText(platos.get(position).getPrecio() + " €");
 
         TextView ingredientes = elemento.findViewById(R.id.ingredientes_dish_list_option);
-        ingredientes.setText(platos.get(position).getIngredientes());
+
+        String textoIngredientes = "";
+
+        for(Ingrediente ingrediente : platos.get(position).getIngredientes()) {
+            textoIngredientes+= ingrediente.getNombre() + ", ";
+        }
+
+        textoIngredientes = textoIngredientes.substring(0, textoIngredientes.length() - 2);
+        ingredientes.setText(textoIngredientes);
 
         return elemento;
     }

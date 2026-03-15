@@ -77,4 +77,15 @@
     <string name="plato_2p">Plato: </string>
     <string name="precio_2p">Precio: </string>
     <string name="ingredientes_2p">Ingredientes: </string>
+    <string name="guardar_cambios">Guardar cambios</string>
+    <string name="menu_restaurante">Menu del restaurante</string>
+    <string name="datos_plato">Datos del plato</string>
+    <string name="ingredidentes_plato">Ingredientes del plato</string>
+    <string name="nuevo_ingrediente">Nuevo ingrediente</string>
+    <string name="nombre_ingrediente">Nombre del ingrediente</string>
+    <string name="es_alergeno">Es alérgeno? </string>
+    <string name="agregar_ingrediente">Añadir ingrediente</string>
+    <string name="subir_imagen_plato">Subir imágen</string>
+    <string name="aplicar_cambios">Aplicar cambios</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

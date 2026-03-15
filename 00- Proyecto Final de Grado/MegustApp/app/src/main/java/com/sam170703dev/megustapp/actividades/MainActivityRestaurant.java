@@ -39,17 +39,34 @@ public class MainActivityRestaurant extends AppCompatActivity {
             return insets;
         });
 
+        final Bundle bundle = getIntent().getExtras();
+        int idRestaurante = 0;
+        String nombreRestaurante = "";
+
+        if(bundle != null) {
+            idRestaurante = bundle.getInt("id_restaurante");
+            nombreRestaurante = bundle.getString("nombre_restaurante");
+        }
+
         final Toolbar toolbar = findViewById(R.id.toolbar_activity_main_restaurant);
+        toolbar.setTitle(nombreRestaurante);
         setSupportActionBar(toolbar);
 
         final BottomNavigationView navbar = findViewById(R.id.navbar_activity_main_restaurant);
+
         navbar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment fragment;
 
+                int idUsuario = 0;
+
+                if(bundle != null) {
+                    idUsuario = bundle.getInt("id_restaurante");
+                }
+
                 if(menuItem.getItemId() == R.id.opc_menu_navbar_restaurant) {
-                    fragment = new FragmentRestaurantMenu();
+                    fragment = new FragmentRestaurantMenu(idUsuario);
                 }
                 else {
                     fragment = new SoonFragment();
@@ -64,7 +81,7 @@ public class MainActivityRestaurant extends AppCompatActivity {
         });
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.framelayout_activity_main_restaurant, new FragmentRestaurantMenu())
+                .add(R.id.framelayout_activity_main_restaurant, new FragmentRestaurantMenu(idRestaurante))
                 .commit();
     }
 

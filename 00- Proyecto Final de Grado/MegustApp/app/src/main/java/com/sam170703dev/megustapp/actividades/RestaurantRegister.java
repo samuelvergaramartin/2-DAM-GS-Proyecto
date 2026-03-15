@@ -21,6 +21,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.sam170703dev.megustapp.R;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,8 +120,11 @@ public class RestaurantRegister extends AppCompatActivity {
                         }
                         else {
                             if(claveInput.getText().toString().equals(confirmarClaveInput.getText().toString())) {
-                                Intent clientRegister2Activity = new Intent(RestaurantRegister.this, RestaurantRegister2.class);
-                                resultLauncher.launch(clientRegister2Activity);
+                                Intent restaurantRegister2Activity = new Intent(RestaurantRegister.this, RestaurantRegister2.class);
+                                restaurantRegister2Activity.putExtra("nombre_restaurante", usuarioInput.getText().toString());
+                                restaurantRegister2Activity.putExtra("correo_restaurante", correoInput.getText().toString());
+                                restaurantRegister2Activity.putExtra("clave_restaurante", encriptar(claveInput.getText().toString()));
+                                resultLauncher.launch(restaurantRegister2Activity);
                             }
                             else {
                                 Toast.makeText(RestaurantRegister.this, "Los campos de las contraseñas deben ser iguales.", Toast.LENGTH_SHORT).show();
@@ -140,5 +145,19 @@ public class RestaurantRegister extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private static String encriptar(String clave) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest(clave.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b & 0xFF));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error al generar SHA-256", e);
+        }
     }
 }

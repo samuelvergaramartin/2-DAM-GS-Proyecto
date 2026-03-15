@@ -1,7 +1,9 @@
 package com.sam170703dev.megustapp.actividades;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.sam170703dev.megustapp.R;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -123,6 +127,9 @@ public class ClientRegister extends AppCompatActivity {
                         else {
                             if(claveInput.getText().toString().equals(confirmarClaveInput.getText().toString())) {
                                 Intent clientRegister2Activity = new Intent(ClientRegister.this, ClientRegister2.class);
+                                clientRegister2Activity.putExtra("Usuario", usuarioInput.getText().toString());
+                                clientRegister2Activity.putExtra("Correo", correoInput.getText().toString());
+                                clientRegister2Activity.putExtra("Clave", encriptar(claveInput.getText().toString()));
                                 resultLauncher.launch(clientRegister2Activity);
                             }
                             else {
@@ -145,4 +152,18 @@ public class ClientRegister extends AppCompatActivity {
             }
         });
     }
+    private static String encriptar(String clave) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest(clave.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b & 0xFF));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error al generar SHA-256", e);
+        }
+    }
+
 }

@@ -1,8 +1,8 @@
 -- Creación de la base de datos
 
-drop database if exists MegustApp;
-create database MegustApp;
-use MegustApp;
+-- drop database if exists MegustApp;
+-- create database MegustApp;
+-- use MegustApp;
 
 -- Creación de tablas y claves foráneas
 
@@ -64,30 +64,32 @@ create table plato_ingrediente (
 
 alter table platos add constraint fk_restaurante foreign key (restaurante) references restaurantes(id);
 alter table valoraciones add constraint fk_cliente foreign key (cliente) references clientes(id);
-alter table valoraciones add constraint fk_restaurante foreign key (restaurante) references restaurantes(id);
+alter table valoraciones add constraint fk_restaurante2 foreign key (restaurante) references restaurantes(id);
 alter table plato_ingrediente add constraint fk_pi_plato foreign key (id_plato) references platos(id);
 alter table plato_ingrediente add constraint fk_pi_ingrediente foreign key(id_ingrediente) references ingredientes(id);
 
 -- Insercción de datos
 
-insert into usuarios (email, clave) values ("samuelvergaramartin@protonmail.com", "A123456a");
+insert into usuarios (email, clave) values ("samuelvergaramartin@protonmail.com", "7383fa676d20108c8c5ed1619b16d8e37108e822f23a7b066072226d63272b16");
+insert into usuarios (email, clave) values ("restaurante1@gmail.com", "7383fa676d20108c8c5ed1619b16d8e37108e822f23a7b066072226d63272b16");
 insert into clientes (nombre, ciudad, telefono, numero_valoraciones, email, clave, ruta_foto_perfil) values (
     "Samuel Vergara Martín",
     "Málaga",
     "+34722688078",
     0,
     "samuelvergaramartin@protonmail.com",
-    "A123456a",
-    "C://Users/anony/image.png"
+    "7383fa676d20108c8c5ed1619b16d8e37108e822f23a7b066072226d63272b16",
+    "http://n1.voriamtechnologies.com:3010/api/imagenes/default/clients/default_user.png"
 );
+-- menudo problemón, porque el id de usuario no siempre coincidirá o casi nunca si hay restaurantes y clientes creados
 insert into restaurantes (nombre, telefono, ciudad, calle, email, clave, ruta_foto_perfil) values (
     "Restaurante 1",
     "+34722688079",
     "Málaga",
     "Sillita de la reina",
     "restaurante1@gmail.com",
-    "A123456a",
-    "C://Users/restaurante1/image.png"
+    "7383fa676d20108c8c5ed1619b16d8e37108e822f23a7b066072226d63272b16",
+    "http://n1.voriamtechnologies.com:3010/api/imagenes/default/restaurants/restaurant_default.webp"
 );
 insert into valoraciones (nota, comentario, cliente, restaurante) values (
     5,
@@ -98,7 +100,7 @@ insert into valoraciones (nota, comentario, cliente, restaurante) values (
 insert into platos (nombre, precio, ruta_imagen, restaurante) values (
     "Macarrones con queso",
     20,
-    "C://Users/restaurante1/platos/1/imagen.png",
+    "http://n1.voriamtechnologies.com:3010/api/imagenes/default/dishes/plato.webp",
     1
 );
 insert into ingredientes (nombre, es_alergeno) values (

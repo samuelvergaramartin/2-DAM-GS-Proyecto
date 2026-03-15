@@ -6,6 +6,7 @@
     android:background="@color/colorPrimary">
 
     <ImageView
+        android:id="@+id/imagen_restaurante_data_restaurant_info"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
@@ -28,6 +29,7 @@
         android:layout_marginBottom="20dp"/>
 
     <TextView
+        android:id="@+id/ciudad_data_restaurant_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
@@ -37,6 +39,7 @@
         android:text="@string/ciudad_malaga"/>
 
     <TextView
+        android:id="@+id/calle_data_restaurant_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
@@ -47,6 +50,7 @@
         android:text="@string/calle_iesbelen"/>
 
     <TextView
+        android:id="@+id/telefono_data_restaurant_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"

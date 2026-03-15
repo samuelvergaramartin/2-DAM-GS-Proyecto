@@ -1,16 +1,21 @@
 package com.sam170703dev.megustapp.adaptadores;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.sam170703dev.megustapp.R;
+import com.sam170703dev.megustapp.actividades.MainActivityClient;
 import com.sam170703dev.megustapp.datos_adaptadores.Restaurant;
+import com.sam170703dev.megustapp.fragments.RestaurantListFragment;
 
 import java.util.ArrayList;
 
@@ -19,7 +24,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<OpcionViewHolder
     private ArrayList<Restaurant> restaurantes;
     private View.OnClickListener listener;
 
-    public RestaurantListAdapter(ArrayList<Restaurant> restaurantes) {
+    public RestaurantListAdapter(ArrayList<Restaurant> restaurantes, Context context) {
         this.restaurantes = restaurantes;
     }
 
@@ -48,7 +53,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<OpcionViewHolder
     @Override
     public void onBindViewHolder(@NonNull OpcionViewHolder holder, int position) {
         Restaurant restaurante = restaurantes.get(position);
-        holder.bindRestaurante(restaurante);
+        holder.bindRestaurante(restaurante, holder.itemView.getContext());
     }
 
     @Override
@@ -68,8 +73,10 @@ class OpcionViewHolder extends RecyclerView.ViewHolder {
         nombre = itemView.findViewById(R.id.nombre_restaurante_opc_restaurant_recview);
     }
 
-    public void bindRestaurante(Restaurant restaurante) {
-        imagen.setImageResource(restaurante.getImagen());
+    public void bindRestaurante(Restaurant restaurante, Context context) {
+        Glide.with(context)
+                .load(restaurante.getImagen())
+                .into(imagen);
         nombre.setText(restaurante.getNombre());
     }
 }

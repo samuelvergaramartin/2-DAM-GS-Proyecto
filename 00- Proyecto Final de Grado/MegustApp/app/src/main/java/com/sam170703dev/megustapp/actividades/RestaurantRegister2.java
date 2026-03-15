@@ -43,6 +43,7 @@ public class RestaurantRegister2 extends AppCompatActivity {
         final EditText calleInput = findViewById(R.id.calle_restaurant_register2);
         final Button botonSiguiente = findViewById(R.id.boton_siguiente_restaurant_register2);
         final TextView textoVolverAtras = findViewById(R.id.texto_volver_atras_restaurant_register2);
+        final Bundle datos = getIntent().getExtras();
 
         ActivityResultLauncher resultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -96,8 +97,14 @@ public class RestaurantRegister2 extends AppCompatActivity {
                     }
 
                     if(!caracteresInvalidosTel && !caracteresInvalidosCiudad) {
-                        Intent mainActivityClient = new Intent(RestaurantRegister2.this, RestaurantRegister3.class);
-                        resultLauncher.launch(mainActivityClient);
+                        Intent restaurantRegister3Activity = new Intent(RestaurantRegister2.this, RestaurantRegister3.class);
+                        restaurantRegister3Activity.putExtra("nombre_restaurante", datos.getString("nombre_restaurante"));
+                        restaurantRegister3Activity.putExtra("correo_restaurante", datos.getString("correo_restaurante"));
+                        restaurantRegister3Activity.putExtra("clave_restaurante", datos.getString("clave_restaurante"));
+                        restaurantRegister3Activity.putExtra("telefono_restaurante", telefonoInput.getText().toString());
+                        restaurantRegister3Activity.putExtra("ciudad_restaurante", ciudadInput.getText().toString());
+                        restaurantRegister3Activity.putExtra("calle_restaurante", calleInput.getText().toString());
+                        resultLauncher.launch(restaurantRegister3Activity);
                     }
                 }
                 else {

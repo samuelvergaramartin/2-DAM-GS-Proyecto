@@ -5,7 +5,7 @@ import com.sam170703dev.megustapp.enums.UserAccountTypes;
 
 public class RestaurantAccount extends UserAccount {
 
-    public RestaurantAccount(String usuario, String clave) {
-        super(usuario, clave, UserAccountTypes.RESTAURANT);
+    public RestaurantAccount(int id, String usuario, String clave) {
+        super(id, usuario, clave, UserAccountTypes.RESTAURANT);
     }
 }

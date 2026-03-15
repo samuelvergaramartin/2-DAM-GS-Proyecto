@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.sam170703dev.megustapp.R;
-import com.sam170703dev.megustapp.fragments.ClientAccountSettingsFragment;
+import com.sam170703dev.megustapp.fragments.ClientSettingsFragment;
 import com.sam170703dev.megustapp.fragments.RestaurantListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -40,12 +40,13 @@ public class MainActivityClient extends AppCompatActivity {
             return insets;
         });
 
+        final Bundle bundle = getIntent().getExtras();
         Toolbar toolbar = findViewById(R.id.toolbar_activity_main_client);
         setSupportActionBar(toolbar);
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.framelayout_activity_main_client, new RestaurantListFragment())
+                    .add(R.id.framelayout_activity_main_client, new RestaurantListFragment(toolbar))
                     .commit();
         }
 
@@ -55,12 +56,17 @@ public class MainActivityClient extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment fragment = null;
+                int idCliente = 0;
+
+                if(bundle != null) {
+                    idCliente = bundle.getInt("id_cliente");
+                }
 
                 if(menuItem.getItemId() == R.id.buscar_navbar_opc) {
-                    fragment = new RestaurantListFragment();
+                    fragment = new RestaurantListFragment(toolbar);
                 }
                 else if(menuItem.getItemId() == R.id.cuenta_navbar_opc) {
-                    fragment = new ClientAccountSettingsFragment();
+                    fragment = new ClientSettingsFragment(idCliente, toolbar);
                 }
 
                 if(fragment == null) return false;

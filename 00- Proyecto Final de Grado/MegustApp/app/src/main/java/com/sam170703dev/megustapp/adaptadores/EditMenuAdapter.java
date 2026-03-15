@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.sam170703dev.megustapp.R;
-import com.sam170703dev.megustapp.datos_adaptadores.Plato;
+import com.sam170703dev.megustapp.entidades.Plato;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class EditMenuAdapter extends ArrayAdapter<Plato> {
 
     public EditMenuAdapter(@NonNull Context context, ArrayList<Plato> platos) {
         super(context, R.layout.plato, platos);
-        platos.add(new Plato("añadir plato", 0, null));
+        platos.add(new Plato());
         this.platos = platos;
     }
 

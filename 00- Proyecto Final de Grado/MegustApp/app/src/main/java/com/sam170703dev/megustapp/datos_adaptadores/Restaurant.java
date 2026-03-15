@@ -1,26 +1,35 @@
 package com.sam170703dev.megustapp.datos_adaptadores;
 
+/**
+ * @Deprecated - Usar clase Restaurante del paquete entidades.
+ */
+@Deprecated
 public class Restaurant {
-    private int imagen;
+    private String imagen;
     private String nombre;
 
-    public Restaurant(int imagen, String nombre) {
+    @Deprecated
+    public Restaurant(String imagen, String nombre) {
         this.imagen = imagen;
         this.nombre = nombre;
     }
 
-    public int getImagen() {
+    @Deprecated
+    public String getImagen() {
         return imagen;
     }
 
+    @Deprecated
     public String getNombre() {
         return nombre;
     }
 
-    public void setImagen(int imagen) {
+    @Deprecated
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
+    @Deprecated
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

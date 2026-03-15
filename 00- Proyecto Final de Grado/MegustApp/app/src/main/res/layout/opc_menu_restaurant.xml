@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/opc_menu_restaurant">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/golden_rectangle">
+
+        <ImageView
+            android:id="@+id/imagen_plato_opc_menu_restaurant"
+            android:layout_width="94dp"
+            android:layout_height="94dp"
+            android:src="@drawable/logo"
+            android:paddingLeft="4dp"
+            android:paddingTop="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nombre_plato_opc_menu_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textOnDark"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/precio_plato_opc_menu_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textOnDark"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/ingredientes_plato_opc_menu_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textOnDark"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
