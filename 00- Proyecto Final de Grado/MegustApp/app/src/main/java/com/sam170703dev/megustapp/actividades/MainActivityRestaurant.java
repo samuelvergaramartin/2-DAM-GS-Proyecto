@@ -18,9 +18,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.sam170703dev.megustapp.R;
 import com.sam170703dev.megustapp.fragments.FragmentRestaurantMenu;
+import com.sam170703dev.megustapp.fragments.RestaurantSettingsFragment;
+import com.sam170703dev.megustapp.fragments.ReviewsListFragment;
 import com.sam170703dev.megustapp.fragments.SoonFragment;
 
 public class MainActivityRestaurant extends AppCompatActivity {
+
+    private String nombreRestaurante = "";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,7 +45,6 @@ public class MainActivityRestaurant extends AppCompatActivity {
 
         final Bundle bundle = getIntent().getExtras();
         int idRestaurante = 0;
-        String nombreRestaurante = "";
 
         if(bundle != null) {
             idRestaurante = bundle.getInt("id_restaurante");
@@ -59,17 +62,23 @@ public class MainActivityRestaurant extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment fragment;
 
-                int idUsuario = 0;
+                int idRestaurante = 0, idUsuario = 0;
 
                 if(bundle != null) {
-                    idUsuario = bundle.getInt("id_restaurante");
+                    idRestaurante = bundle.getInt("id_restaurante");
+                    idUsuario = bundle.getInt("id_usuario");
                 }
 
                 if(menuItem.getItemId() == R.id.opc_menu_navbar_restaurant) {
-                    fragment = new FragmentRestaurantMenu(idUsuario);
+                    toolbar.setTitle(nombreRestaurante);
+                    fragment = new FragmentRestaurantMenu(idRestaurante);
+                }
+                else if(menuItem.getItemId() == R.id.opc_account_navbar_restaurant) {
+                    fragment = new RestaurantSettingsFragment(idRestaurante, idUsuario, toolbar);
                 }
                 else {
-                    fragment = new SoonFragment();
+                    toolbar.setTitle(nombreRestaurante);
+                    fragment = new ReviewsListFragment(idRestaurante);
                 }
 
                 getSupportFragmentManager().beginTransaction()

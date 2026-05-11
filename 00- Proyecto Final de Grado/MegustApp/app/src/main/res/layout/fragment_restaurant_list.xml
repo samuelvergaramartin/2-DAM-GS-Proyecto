@@ -3,13 +3,142 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     android:id="@+id/restaurant_list_fragment"
     tools:context=".fragments.RestaurantListFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listado_restaurantes_fragment_restaurant_list"
+    <LinearLayout
+        android:id="@+id/search_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="8dp"
+        android:gravity="center_vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchBar"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:background="@color/white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Buscar restaurante"
+            app:startIconDrawable="@drawable/ic_search_24"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchBarEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:background="@color/white"
+                android:textColor="@color/colorPrimary"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/filterButton"
+            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+            android:backgroundTint="@color/electric_blue"
+            app:iconTint="@color/white"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Filtros"
+            app:icon="@drawable/ic_filter_list_24"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        style="@style/Widget.Material3.Button.IconButton.Outlined"
+
+        android:layout_marginTop="70dp">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:background="@color/textOnDark"
+            android:visibility="gone">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_ciudad"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="@color/electric_blue"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ciudad"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipCityGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:background="@color/textOnDark"
+            android:visibility="gone">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_malaga"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="@color/electric_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/malaga"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_sevilla"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="@color/electric_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sevilla"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_cordoba"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="@color/electric_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cordoba"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_madrid"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="@color/electric_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/madrid"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listado_restaurantes_fragment_restaurant_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
 
 </FrameLayout>

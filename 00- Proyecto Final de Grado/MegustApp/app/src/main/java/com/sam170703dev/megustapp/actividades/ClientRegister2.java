@@ -132,6 +132,7 @@ public class ClientRegister2 extends AppCompatActivity {
                                                 Toast.makeText(ClientRegister2.this, "Cuenta creada satisfactoriamente", Toast.LENGTH_SHORT).show();
                                                 Intent mainActivityClient = new Intent(ClientRegister2.this, MainActivityClient.class);
                                                 mainActivityClient.putExtra("id_usuario", response2.body().getId());
+                                                mainActivityClient.putExtra("id_cliente", response.body().getId());
                                                 resultLauncher.launch(mainActivityClient);
                                             }
                                             else {
@@ -146,7 +147,7 @@ public class ClientRegister2 extends AppCompatActivity {
                                     });
                                 }
                                 else {
-                                    Toast.makeText(ClientRegister2.this, "Fue aqui y estado: " + response.code(), Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(ClientRegister2.this, "Fue aqui y estado: " + response.code(), Toast.LENGTH_SHORT).show();
                                     //Toast.makeText(ClientRegister2.this, "Ocurrió un error al intentar crear la cuenta", Toast.LENGTH_SHORT).show();
                                 }
                             }

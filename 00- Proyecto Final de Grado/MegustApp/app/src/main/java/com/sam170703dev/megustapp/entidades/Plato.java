@@ -13,6 +13,16 @@ public class Plato implements Serializable {
 
     private int restauranteId;
 
+    public Plato() {};
+
+    public Plato(int id, String nombre, double precio, String imagen, List<Ingrediente> ingredientes) {
+        setId(id);
+        setNombre(nombre);
+        setPrecio(precio);
+        setImagen(imagen);
+        this.ingredientes = ingredientes;
+    }
+
     public int getId() {
         return id;
     }

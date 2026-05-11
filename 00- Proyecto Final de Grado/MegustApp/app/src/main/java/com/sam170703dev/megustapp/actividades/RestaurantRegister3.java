@@ -51,6 +51,11 @@ import retrofit2.Response;
 
 public class RestaurantRegister3 extends AppCompatActivity {
 
+    private Plato platoSeleccionado;
+    private EditMenuAdapter adaptador;
+    private ArrayList<Plato> platos = new ArrayList<>();
+    private ListView menu;
+    private ActivityResultLauncher resultLauncher;
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -70,9 +75,8 @@ public class RestaurantRegister3 extends AppCompatActivity {
             return insets;
         });
 
-        final ArrayList<Plato> platos = new ArrayList<>();
-        final ListView menu = findViewById(R.id.menu_restaurant_register3);
-        final EditMenuAdapter adaptador = new EditMenuAdapter(this, platos);
+        menu = findViewById(R.id.menu_restaurant_register3);
+        adaptador = new EditMenuAdapter(this, platos);
         final Button botonFinalizarRegistro = findViewById(R.id.boton_finalizar_registro_restaurant_register3);
         final TextView textoVolverAtras = findViewById(R.id.texto_volver_atras_restaurant_register3);
 
@@ -87,7 +91,7 @@ public class RestaurantRegister3 extends AppCompatActivity {
         final SharedPreferences sharedPreferences = getSharedPreferences("Tokens", Context.MODE_PRIVATE);
         final String tokenRestaurante = sharedPreferences.getString("token_restaurante", "");
 
-        ActivityResultLauncher resultLauncher = registerForActivityResult(
+        resultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -103,10 +107,50 @@ public class RestaurantRegister3 extends AppCompatActivity {
                                         setResult(RESULT_OK, resultadoActividad);
                                         finish();
                                     }
+                                    else if(datos.getBoolean("editar_plato")) {
+                                        String nombrePlato = datos.getString("nombre_plato");
+                                        double precioPlato = Double.parseDouble(datos.getString("precio_plato"));
+                                        ArrayList<Ingrediente> ingredientes = (ArrayList<Ingrediente>) datos.getSerializable("ingredientes_plato");
+                                        String imagenPlato = datos.getString("imagen_plato");
+                                        Plato plato = obtenerPlatoPorCodigo(datos.getInt("id_plato"));
+                                        int pos = platos.indexOf(plato);
+
+                                        if(plato != null) {
+                                            plato.setNombre(nombrePlato);
+                                            plato.setPrecio(precioPlato);
+                                            plato.getIngredientes().clear();
+                                            ingredientes.forEach(ingrediente -> plato.addIngrediente(ingrediente));
+                                            plato.setImagen(imagenPlato);
+
+                                            platos.set(pos, plato);
+                                            menu.setAdapter(adaptador);
+                                            adaptador.getViews().clear();
+                                            new Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    for(int i = 0; i < adaptador.getViews().size(); i++) {
+                                                        View platoView = adaptador.getViews().get(i);
+                                                        Plato plato = adaptador.getItem(i);
+
+                                                        platoView.setOnLongClickListener(new View.OnLongClickListener() {
+                                                            @Override
+                                                            public boolean onLongClick(View v) {
+                                                                platoSeleccionado = plato;
+
+                                                                return platoView.showContextMenu();
+                                                            }
+                                                        });
+
+                                                        registerForContextMenu(platoView);
+                                                    }
+                                                }
+                                            }, 1000);
+                                        }
+                                    }
                                     else {
                                         String nombrePlato = datos.getString("nombre_plato");
                                         double precioPlato = Double.parseDouble(datos.getString("precio_plato"));
-                                        ArrayList<Ingrediente> ingredientes = new ArrayList<>(datos.getParcelableArrayList("ingredientes_plato"));
+                                        ArrayList<Ingrediente> ingredientes = (ArrayList<Ingrediente>) datos.getSerializable("ingredientes_plato");
                                         String imagenPlato = datos.getString("imagen_plato");
                                         Plato nuevoPlato = new Plato();
                                         nuevoPlato.setNombre(nombrePlato);
@@ -121,8 +165,20 @@ public class RestaurantRegister3 extends AppCompatActivity {
                                         new Handler().postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                for(View plato : adaptador.getViews()) {
-                                                    registerForContextMenu(plato);
+                                                for(int i = 0; i < adaptador.getViews().size(); i++) {
+                                                    View platoView = adaptador.getViews().get(i);
+                                                    Plato plato = adaptador.getItem(i);
+
+                                                    platoView.setOnLongClickListener(new View.OnLongClickListener() {
+                                                        @Override
+                                                        public boolean onLongClick(View v) {
+                                                            platoSeleccionado = plato;
+
+                                                            return platoView.showContextMenu();
+                                                        }
+                                                    });
+
+                                                    registerForContextMenu(platoView);
                                                 }
                                             }
                                         }, 1000);
@@ -166,130 +222,26 @@ public class RestaurantRegister3 extends AppCompatActivity {
                     api.crearRestaurante("Bearer " + tokenRestaurante, peticionCrearRestaurante).enqueue(new Callback<Restaurante>() {
                         @Override
                         public void onResponse(Call<Restaurante> call, Response<Restaurante> response) {
-                            if(response.isSuccessful()) {
+                            if(response.isSuccessful() && response.body() != null) {
                                 api.crearUsuario("Bearer " + tokenRestaurante, new PeticionCrearUsuario(correoRestaurante, claveRestaurante)).enqueue(new Callback<Usuario>() {
                                     @Override
                                     public void onResponse(Call<Usuario> call, Response<Usuario> response2) {
                                         if(response2.isSuccessful()) {
-                                            int delay = 200;
-                                            for(Plato plato : platos) {
-                                                for(Ingrediente ingrediente : plato.getIngredientes()) {
-                                                    new Handler().postDelayed(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            api.obtenerIngredientes("Bearer " + tokenRestaurante).enqueue(new Callback<List<Ingrediente>>() {
-                                                                @Override
-                                                                public void onResponse(Call<List<Ingrediente>> call, Response<List<Ingrediente>> response3) {
-                                                                    if(response.isSuccessful() && ingrediente != null && ingrediente.getNombre() != null && !ingredienteRegistrado(response3.body(), ingrediente)) {
-                                                                        Log.i("LOG-INGREDIENTE", "contains?: " + response3.body().contains(ingrediente));
-                                                                        Log.i("LOG-INGREDIENTE-2", "listado: " + response3.body().toString());
-                                                                        Log.i("LOG-INGREDIENTE-3", "nombre ingrediente: " + ingrediente.getNombre());
-                                                                        api.crearIngrediente("Bearer " + tokenRestaurante, new PeticionCrearIngrediente(
-                                                                                ingrediente.getNombre(),
-                                                                                ingrediente.isEsAlergeno()
-                                                                        )).enqueue(new Callback<Ingrediente>() {
-                                                                            @Override
-                                                                            public void onResponse(Call<Ingrediente> call, Response<Ingrediente> response4) {
-                                                                                if(response4.isSuccessful()) {
-                                                                                    Ingrediente refIngrediente = new Ingrediente();
-                                                                                    refIngrediente.setNombre(response4.body().getNombre());
-                                                                                    refIngrediente.setEsAlergeno(response4.body().isEsAlergeno());
-                                                                                    for(int i = 0; i < plato.getIngredientes().size(); i++) {
-                                                                                        if(plato.getIngredientes().get(i).equals(refIngrediente)) plato.getIngredientes().set(i, response4.body());
-                                                                                    }
-                                                                                    //plato.getIngredientes().set(plato.getIngredientes().indexOf(refIngrediente), response4.body());
-                                                                                }
-                                                                                else Toast.makeText(RestaurantRegister3.this, "code: " + response4.code(), Toast.LENGTH_SHORT).show();
-                                                                            }
-
-                                                                            @Override
-                                                                            public void onFailure(Call<Ingrediente> call, Throwable t) {}
-                                                                        });
-                                                                    }
-                                                                    else if(ingrediente != null && ingrediente.getNombre() != null) {
-                                                                        Ingrediente ingredienteCompleto = new Ingrediente();
-                                                                        ingredienteCompleto.setNombre(ingrediente.getNombre());
-                                                                        ingredienteCompleto.setEsAlergeno(ingrediente.isEsAlergeno());
-                                                                        int i = 0;
-                                                                        boolean encontrado = false;
-
-                                                                        while (i < response3.body().size() && !encontrado) {
-                                                                            if(response3.body().get(i).getNombre().equals(ingrediente.getNombre()) && response3.body().get(i).isEsAlergeno() == ingrediente.isEsAlergeno()) {
-                                                                                ingredienteCompleto.setId(response3.body().get(i).getId());
-                                                                                encontrado = true;
-                                                                            }
-
-                                                                            i++;
-                                                                        }
-
-                                                                        i = 0;
-                                                                        encontrado = false;
-
-                                                                        while (i < plato.getIngredientes().size() && !encontrado) {
-                                                                            if(plato.getIngredientes().get(i).getNombre().equals(ingredienteCompleto.getNombre()) && plato.getIngredientes().get(i).isEsAlergeno() == ingredienteCompleto.isEsAlergeno()) {
-                                                                                plato.getIngredientes().get(i).setId(ingredienteCompleto.getId());
-                                                                                encontrado = true;
-                                                                            }
-
-                                                                            i++;
-                                                                        }
-                                                                    }
-
-                                                                    if(ingrediente != null && ingrediente.getNombre() == null) {
-                                                                        plato.getIngredientes().remove(ingrediente);
-                                                                    }
-                                                                }
-
-                                                                @Override
-                                                                public void onFailure(Call<List<Ingrediente>> call, Throwable t) {}
-                                                            });
-                                                        }
-                                                    }, delay);
-                                                    delay+= 200;
-                                                }
-                                                new Handler().postDelayed(new Runnable() {
-                                                    PeticionCrearPlato peticionCrearPlato = new PeticionCrearPlato(
-                                                            plato.getNombre(),
-                                                            plato.getPrecio(),
-                                                            plato.getImagen(),
-                                                            plato.getIngredientes(),
-                                                            response.body().getId());
-                                                    @Override
-                                                    public void run() {
-                                                        api.crearPlato("Bearer " + tokenRestaurante, new PeticionCrearPlato(
-                                                                plato.getNombre(),
-                                                                plato.getPrecio(),
-                                                                plato.getImagen(),
-                                                                plato.getIngredientes(),
-                                                                response.body().getId()
-                                                        )).enqueue(new Callback<Plato>() {
-                                                            @Override
-                                                            public void onResponse(Call<Plato> call, Response<Plato> response3) {
-                                                                Log.i("PETICION", "Peticion crear plato: " + peticionCrearPlato);
-                                                                if(!response3.isSuccessful()) Log.i("TROLL", "La app te esta trolleando silenciosamente");
-                                                            }
-
-                                                            @Override
-                                                            public void onFailure(Call<Plato> call, Throwable t) {
-                                                                throw new Error("ERROR_PLATOS " + t.getMessage());
-                                                            }
-                                                        });
-                                                    }
-                                                }, delay);
-                                                delay+= 200;
-                                            }
-
-                                            new Handler().postDelayed(new Runnable() {
+                                            crearPlatosRegistro(api, tokenRestaurante, platos, response.body().getId(), new CompletionCallback() {
                                                 @Override
-                                                public void run() {
+                                                public void onComplete() {
                                                     Toast.makeText(RestaurantRegister3.this, "Cuenta creada satisfactoriamente", Toast.LENGTH_SHORT).show();
                                                     Intent restaurantMainActivity = new Intent(RestaurantRegister3.this, MainActivityRestaurant.class);
                                                     restaurantMainActivity.putExtra("id_usuario", response2.body().getId());
+                                                    restaurantMainActivity.putExtra("id_restaurante", response.body().getId());
+                                                    restaurantMainActivity.putExtra("nombre_restaurante", response.body().getNombre());
                                                     resultLauncher.launch(restaurantMainActivity);
                                                 }
-                                            }, delay);
+                                            });
                                         }
-                                        else Toast.makeText(RestaurantRegister3.this, "Se ha producido un error al crear la cuenta.", Toast.LENGTH_SHORT).show();
+                                        else {
+                                            Toast.makeText(RestaurantRegister3.this, "Se ha producido un error al crear la cuenta.", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
 
                                     @Override
@@ -298,7 +250,9 @@ public class RestaurantRegister3 extends AppCompatActivity {
                                     }
                                 });
                             }
-                            else Toast.makeText(RestaurantRegister3.this, "Se ha producido un error al crear la cuenta", Toast.LENGTH_SHORT).show();
+                            else {
+                                Toast.makeText(RestaurantRegister3.this, "Se ha producido un error al crear la cuenta", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
@@ -321,10 +275,199 @@ public class RestaurantRegister3 extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this, "View: " + item.getActionView(), Toast.LENGTH_SHORT).show();
+        if(item.getItemId() == R.id.opc_editar_plato) {
+            Intent addDishActivity = new Intent(RestaurantRegister3.this, AddDish.class);
+            ArrayList<Plato> plato = new ArrayList<>();
+            plato.add(platoSeleccionado);
+            addDishActivity.putExtra("plato", plato);
+            resultLauncher.launch(addDishActivity);
+        }
+        else {
+            ArrayList<Plato> temp = new ArrayList<>();
+            platos.forEach(plato -> {
+                if(!plato.equals(platoSeleccionado) && plato.getNombre() != null) temp.add(plato);
+            });
+            platos = new ArrayList<>(temp);
+            adaptador = new EditMenuAdapter(this, platos);
+            menu.setAdapter(adaptador);
+            adaptador.getViews().clear();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    for(int i = 0; i < adaptador.getViews().size(); i++) {
+                        View platoView = adaptador.getViews().get(i);
+                        Plato plato = adaptador.getItem(i);
+
+                        platoView.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                platoSeleccionado = plato;
+
+                                return platoView.showContextMenu();
+                            }
+                        });
+
+                        registerForContextMenu(platoView);
+                    }
+                }
+            }, 1000);
+            Toast.makeText(this, "Plato eliminado satisfactoriamente", Toast.LENGTH_SHORT).show();
+        }
+
         return super.onContextItemSelected(item);
+    }
+
+
+    private interface CompletionCallback {
+        void onComplete();
+    }
+
+    private void crearPlatosRegistro(API api, String tokenRestaurante, ArrayList<Plato> platos, int idRestaurante, CompletionCallback completionCallback) {
+        guardarPlatosRegistro(api, tokenRestaurante, platos, idRestaurante, 0, completionCallback);
+    }
+
+    private void guardarPlatosRegistro(API api, String tokenRestaurante, ArrayList<Plato> platos, int idRestaurante, int index, CompletionCallback completionCallback) {
+        if(index >= platos.size()) {
+            completionCallback.onComplete();
+            return;
+        }
+
+        Plato plato = platos.get(index);
+        if(plato == null || plato.getNombre() == null) {
+            guardarPlatosRegistro(api, tokenRestaurante, platos, idRestaurante, index + 1, completionCallback);
+            return;
+        }
+
+        sincronizarIngredientesRegistro(api, tokenRestaurante, plato, 0, new CompletionCallback() {
+            @Override
+            public void onComplete() {
+                ArrayList<Ingrediente> ingredientesValidos = new ArrayList<>();
+                for(Ingrediente ingrediente : plato.getIngredientes()) {
+                    if(ingrediente != null && ingrediente.getNombre() != null) {
+                        ingredientesValidos.add(ingrediente);
+                    }
+                }
+
+                plato.getIngredientes().clear();
+                plato.getIngredientes().addAll(ingredientesValidos);
+
+                PeticionCrearPlato peticionCrearPlato = new PeticionCrearPlato(
+                        plato.getNombre(),
+                        plato.getPrecio(),
+                        plato.getImagen(),
+                        ingredientesValidos,
+                        idRestaurante);
+
+                api.crearPlato("Bearer " + tokenRestaurante, peticionCrearPlato).enqueue(new Callback<Plato>() {
+                    @Override
+                    public void onResponse(Call<Plato> call, Response<Plato> response) {
+                        if(response.isSuccessful() && response.body() != null) {
+                            plato.setId(response.body().getId());
+                            Log.i("CREAR-PLATO", "se ha creado plato");
+                        }
+                        else {
+                            Log.i("CREAR-PLATO", "No se ha creado el plato " + response.code());
+                        }
+
+                        guardarPlatosRegistro(api, tokenRestaurante, platos, idRestaurante, index + 1, completionCallback);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Plato> call, Throwable t) {
+                        Log.i("CREAR-PLATO", "Error al crear plato: " + t.getMessage());
+                        guardarPlatosRegistro(api, tokenRestaurante, platos, idRestaurante, index + 1, completionCallback);
+                    }
+                });
+            }
+        });
+    }
+
+    private void sincronizarIngredientesRegistro(API api, String tokenRestaurante, Plato plato, int index, CompletionCallback completionCallback) {
+        if(index >= plato.getIngredientes().size()) {
+            completionCallback.onComplete();
+            return;
+        }
+
+        Ingrediente ingrediente = plato.getIngredientes().get(index);
+
+        if(ingrediente == null || ingrediente.getNombre() == null) {
+            plato.getIngredientes().remove(index);
+            sincronizarIngredientesRegistro(api, tokenRestaurante, plato, index, completionCallback);
+            return;
+        }
+
+        api.obtenerIngredientes("Bearer " + tokenRestaurante).enqueue(new Callback<List<Ingrediente>>() {
+            @Override
+            public void onResponse(Call<List<Ingrediente>> call, Response<List<Ingrediente>> response) {
+                if(!response.isSuccessful() || response.body() == null) {
+                    sincronizarIngredientesRegistro(api, tokenRestaurante, plato, index + 1, completionCallback);
+                    return;
+                }
+
+                Ingrediente ingredienteExistente = buscarIngrediente(response.body(), ingrediente);
+                if(ingredienteExistente != null) {
+                    plato.getIngredientes().set(index, ingredienteExistente);
+                    sincronizarIngredientesRegistro(api, tokenRestaurante, plato, index + 1, completionCallback);
+                    return;
+                }
+
+                api.crearIngrediente("Bearer " + tokenRestaurante, new PeticionCrearIngrediente(
+                        ingrediente.getNombre(),
+                        ingrediente.isEsAlergeno()
+                )).enqueue(new Callback<Ingrediente>() {
+                    @Override
+                    public void onResponse(Call<Ingrediente> call, Response<Ingrediente> responseIngrediente) {
+                        if(responseIngrediente.isSuccessful() && responseIngrediente.body() != null) {
+                            plato.getIngredientes().set(index, responseIngrediente.body());
+                        }
+                        else {
+                            Toast.makeText(RestaurantRegister3.this, "code: " + responseIngrediente.code(), Toast.LENGTH_SHORT).show();
+                        }
+
+                        sincronizarIngredientesRegistro(api, tokenRestaurante, plato, index + 1, completionCallback);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Ingrediente> call, Throwable t) {
+                        sincronizarIngredientesRegistro(api, tokenRestaurante, plato, index + 1, completionCallback);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<List<Ingrediente>> call, Throwable t) {
+                sincronizarIngredientesRegistro(api, tokenRestaurante, plato, index + 1, completionCallback);
+            }
+        });
+    }
+
+    private Ingrediente buscarIngrediente(List<Ingrediente> ingredientes, Ingrediente ingrediente) {
+        if(ingredientes == null || ingrediente == null || ingrediente.getNombre() == null) {
+            return null;
+        }
+
+        for(Ingrediente ingredienteRegistrado : ingredientes) {
+            if(ingredienteRegistrado.getNombre().equals(ingrediente.getNombre())
+                    && ingredienteRegistrado.isEsAlergeno() == ingrediente.isEsAlergeno()) {
+                return ingredienteRegistrado;
+            }
+        }
+
+        return null;
+    }
+
+    private Plato obtenerPlatoPorCodigo(int codigo) {
+        Plato plato = null;
+        int i = 0;
+
+        while (i < platos.size() && plato == null) {
+            if(platos.get(i).getId() == codigo) plato = platos.get(i);
+
+            i++;
+        }
+
+        return plato;
     }
 
     private boolean ingredienteRegistrado(List<Ingrediente> ingredientes, Ingrediente ingrediente) {

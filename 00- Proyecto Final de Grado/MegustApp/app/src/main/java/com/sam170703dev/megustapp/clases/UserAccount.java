@@ -63,4 +63,14 @@ public abstract class UserAccount {
             throw new RuntimeException("Error al generar SHA-256", e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "UserAccount{" +
+                "id=" + id +
+                ", usuario='" + usuario + '\'' +
+                ", clave='" + clave + '\'' +
+                ", TIPO=" + TIPO +
+                '}';
+    }
 }

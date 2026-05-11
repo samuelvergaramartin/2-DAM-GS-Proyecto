@@ -71,21 +71,46 @@ public class Login extends AppCompatActivity {
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
                 if(response.isSuccessful()) {
                     for(Usuario usuario : response.body()) {
-                        api.getClienteById("Bearer " + tokenCliente, usuario.getId()).enqueue(new Callback<Cliente>() {
+                        api.getClientes("Bearer " + tokenCliente).enqueue(new Callback<List<Cliente>>() {
                             @Override
-                            public void onResponse(Call<Cliente> call2, Response<Cliente> response2) {
+                            public void onResponse(Call<List<Cliente>> call, Response<List<Cliente>> response2) {
                                 if(response2.isSuccessful()) {
-                                    cuentas.put(usuario.getEmail(), new ClientAccount(usuario.getId(), usuario.getEmail(), usuario.getClave()));
-                                }
-                                else {
-                                    cuentas.put(usuario.getEmail(), new RestaurantAccount(usuario.getId(), usuario.getEmail(), usuario.getClave()));
+                                    int i = 0;
+                                    boolean encontrado = false;
+                                    while (i < response2.body().size() && !encontrado) {
+                                        if(response2.body().get(i).getEmail().equals(usuario.getEmail())) {
+                                            encontrado = true;
+                                            cuentas.put(usuario.getEmail(), new ClientAccount(usuario.getId(), usuario.getEmail(), usuario.getClave()));
+                                            /*api.getClienteById("Bearer " + tokenCliente, response2.body().get(i).getId()).enqueue(new Callback<Cliente>() {
+                                                @Override
+                                                public void onResponse(Call<Cliente> call3, Response<Cliente> response3) {
+                                                    if(response3.isSuccessful()) {
+                                                        Log.i("SVM-LOG", "CLIENTE " + usuario.getEmail());
+                                                        cuentas.put(usuario.getEmail(), new ClientAccount(usuario.getId(), usuario.getEmail(), usuario.getClave()));
+                                                    }
+                                                    else {
+                                                        cuentas.put(usuario.getEmail(), new RestaurantAccount(usuario.getId(), usuario.getEmail(), usuario.getClave()));
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Cliente> call, Throwable t) {
+                                                    Log.i("LOGIN-ERROR", "Error");
+                                                    Log.e("ERROR", t.getMessage());
+                                                }
+                                            });*/
+                                        }
+
+                                        i++;
+                                    }
+
+                                    if(!encontrado) cuentas.put(usuario.getEmail(), new RestaurantAccount(usuario.getId(), usuario.getEmail(), usuario.getClave()));
                                 }
                             }
 
                             @Override
-                            public void onFailure(Call<Cliente> call, Throwable t) {
-                                Log.i("LOGIN-ERROR", "Error");
-                                Log.e("ERROR", t.getMessage());
+                            public void onFailure(Call<List<Cliente>> call, Throwable t) {
+
                             }
                         });
                     }
@@ -150,6 +175,7 @@ public class Login extends AppCompatActivity {
                 if(!credencialesValidas) Toast.makeText(Login.this, "Credenciales inválidas", Toast.LENGTH_SHORT).show();
                 else {
                     if(cuenta.getTIPO().equals(UserAccountTypes.CLIENT)) {
+                        Log.i("SVM-LOG", "LEYENDO AQUI " + cuenta);
                         api.getClientes("Bearer " + tokenCliente).enqueue(new Callback<List<Cliente>>() {
                             @Override
                             public void onResponse(Call<List<Cliente>> call, Response<List<Cliente>> response) {
@@ -160,6 +186,7 @@ public class Login extends AppCompatActivity {
                                     while (i < response.body().size() && !encontrado) {
                                         if(response.body().get(i).getEmail().equals(cuenta.getUsuario())) {
                                             actividad = new Intent(Login.this, MainActivityClient.class);
+                                            actividad.putExtra("id_usuario", cuentas.get(response.body().get(i).getEmail()).getId());
                                             actividad.putExtra("id_cliente", response.body().get(i).getId());
                                             encontrado = true;
                                         }
@@ -189,6 +216,7 @@ public class Login extends AppCompatActivity {
                                     while (i < response.body().size() && !encontrado) {
                                         if(response.body().get(i).getEmail().equals(cuenta.getUsuario())) {
                                             actividad = new Intent(Login.this, MainActivityRestaurant.class);
+                                            actividad.putExtra("id_usuario", cuentas.get(response.body().get(i).getEmail()).getId());
                                             actividad.putExtra("id_restaurante", response.body().get(i).getId());
                                             actividad.putExtra("nombre_restaurante", response.body().get(i).getNombre());
                                             encontrado = true;

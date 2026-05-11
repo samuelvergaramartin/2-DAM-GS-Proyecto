@@ -3,7 +3,7 @@ import multer from 'multer';
 import { existsSync, unlinkSync } from 'node:fs';
 
 const servidor = express();
-const puerto = 3000;
+const puerto = 3010;
 servidor.use(express.json());
 servidor.use('/api/imagenes', express.static('uploads'));
 
@@ -32,30 +32,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-servidor.get("/api/usuarios", (req, res)=> {
-    res.send([{
-        id: 1,
-        email: "samuelvergaramartin@protonmail.com",
-        clave: "123"
-    }]).status(200);
-})
-
-servidor.get("/api/usuarios/:id", (req, res)=> {
-    const id = req.params.id;
-    res.send({
-        id: 1,
-        email: "samuelvergaramartin@protonmail.com",
-        clave: "123"
-    }).status(200);
-})
-
-servidor.get("/api/imagenes", (req, res)=> {
-   res.send({
-       message: "OK"
-   }).status(200);
+servidor.post('/api/imagenes/clientes', upload.single('imagen'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ mensaje: 'No se recibió ningún archivo' });
+    }
+    res.json({ mensaje: 'Imagen subida con éxito', archivo: req.file });
 });
 
-servidor.post('/api/imagenes/clientes', upload.single('imagen'), (req, res) => {
+servidor.post('/api/imagenes/restaurantes', upload.single('imagen'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ mensaje: 'No se recibió ningún archivo' });
     }
@@ -68,12 +52,6 @@ servidor.post('/api/imagenes/platos', upload.single('imagen'), (req, res) => {
     }
     res.json({ mensaje: 'Imagen subida con éxito', archivo: req.file });
 });
-
-servidor.post("/test", (req, res)=> {
-    console.log("Petición recibida.")
-    console.log("Cuerpo de la peticion: ", req.body);
-    res.json({mensaje: "OK, prueba realizada"});
-})
 
 servidor.delete("/api/imagenes/platos/:id", (req, res)=> {
     if(!req.params && !req.params.id) {

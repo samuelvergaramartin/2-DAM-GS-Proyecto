@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="textInputColor">
+        <item name="android:textColor">@color/accent</item>
+    </style>
+    <style name="CustomBottomNavIndicator">
+        <item name="android:color">@color/electric_blue</item>
+    </style>
+</resources>

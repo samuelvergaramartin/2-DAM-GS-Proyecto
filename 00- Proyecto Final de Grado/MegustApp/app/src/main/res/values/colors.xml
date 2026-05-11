@@ -16,6 +16,7 @@
     <color name="success">#4CAF50</color>
     <color name="warning">#FFC107</color>
     <color name="error">#F44336</color>
+    <color name="light_red">#D97972</color>
 
     <color name="textPrimary">#1A1A1A</color>
     <color name="textSecondary">#4B4B4B</color>
@@ -23,4 +24,8 @@
 
     <color name="background">#FAFAFA</color>
     <color name="surface">#F2F2F2</color>
+
+    <color name="electric_blue">#0044FF</color>
+
+    <color name="transparent">#00000000</color>
 </resources>

@@ -4,11 +4,6 @@
     <item
         android:id="@+id/opc_recargar_pagina_restaurant_list_menu"
         android:title="@string/recargar_pagina"/>
-    <item
-        android:id="@+id/opc_buscar_restaurant_list_menu"
-        android:title="@string/buscar"
-        android:icon="@drawable/search"
-        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/opc_cerrar_sesion_restaurant_list_menu"

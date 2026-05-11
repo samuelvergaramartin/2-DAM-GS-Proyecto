@@ -6,25 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.sam170703dev.megustapp.R;
-import com.sam170703dev.megustapp.actividades.MainActivityClient;
-import com.sam170703dev.megustapp.datos_adaptadores.Restaurant;
-import com.sam170703dev.megustapp.fragments.RestaurantListFragment;
+import com.sam170703dev.megustapp.entidades.Restaurante;
 
 import java.util.ArrayList;
 
 public class RestaurantListAdapter extends RecyclerView.Adapter<OpcionViewHolder> implements View.OnClickListener {
 
-    private ArrayList<Restaurant> restaurantes;
+    private ArrayList<Restaurante> restaurantes;
     private View.OnClickListener listener;
 
-    public RestaurantListAdapter(ArrayList<Restaurant> restaurantes, Context context) {
+    public RestaurantListAdapter(ArrayList<Restaurante> restaurantes, Context context) {
         this.restaurantes = restaurantes;
     }
 
@@ -52,7 +49,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<OpcionViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull OpcionViewHolder holder, int position) {
-        Restaurant restaurante = restaurantes.get(position);
+        Restaurante restaurante = restaurantes.get(position);
         holder.bindRestaurante(restaurante, holder.itemView.getContext());
     }
 
@@ -73,9 +70,9 @@ class OpcionViewHolder extends RecyclerView.ViewHolder {
         nombre = itemView.findViewById(R.id.nombre_restaurante_opc_restaurant_recview);
     }
 
-    public void bindRestaurante(Restaurant restaurante, Context context) {
+    public void bindRestaurante(Restaurante restaurante, Context context) {
         Glide.with(context)
-                .load(restaurante.getImagen())
+                .load(restaurante.getFotoPerfil())
                 .into(imagen);
         nombre.setText(restaurante.getNombre());
     }

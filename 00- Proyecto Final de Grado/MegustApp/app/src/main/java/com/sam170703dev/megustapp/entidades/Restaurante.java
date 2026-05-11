@@ -1,6 +1,8 @@
 package com.sam170703dev.megustapp.entidades;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class Restaurante implements Serializable {
@@ -68,7 +70,7 @@ public class Restaurante implements Serializable {
     }
 
     public void setClave(String clave) {
-        this.clave = clave;
+        this.clave = encriptar(clave);
     }
 
     public String getFotoPerfil() {
@@ -93,6 +95,20 @@ public class Restaurante implements Serializable {
 
     public List<Valoracion> getValoraciones() {
         return valoraciones;
+    }
+
+    private String encriptar(String clave) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] digest = md.digest(clave.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b & 0xFF));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error al generar SHA-256", e);
+        }
     }
 
     @Override

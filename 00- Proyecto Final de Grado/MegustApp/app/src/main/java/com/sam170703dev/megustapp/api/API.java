@@ -5,12 +5,14 @@ import com.sam170703dev.megustapp.entidades.Ingrediente;
 import com.sam170703dev.megustapp.entidades.Plato;
 import com.sam170703dev.megustapp.entidades.Restaurante;
 import com.sam170703dev.megustapp.entidades.Usuario;
+import com.sam170703dev.megustapp.entidades.Valoracion;
 import com.sam170703dev.megustapp.peticiones_http.post.PeticionCrearCliente;
 import com.sam170703dev.megustapp.peticiones_http.post.PeticionCrearIngrediente;
 import com.sam170703dev.megustapp.peticiones_http.post.PeticionCrearPlato;
 import com.sam170703dev.megustapp.peticiones_http.post.PeticionCrearRestaurante;
 import com.sam170703dev.megustapp.peticiones_http.post.PeticionCrearUsuario;
 import com.sam170703dev.megustapp.peticiones_http.post.PeticionEliminarImagenPlato;
+import com.sam170703dev.megustapp.peticiones_http.post.PeticionInsertarValoracion;
 import com.sam170703dev.megustapp.peticiones_http.post.PeticionTokenCliente;
 import com.sam170703dev.megustapp.peticiones_http.post.PeticionTokenRestaurante;
 import com.sam170703dev.megustapp.respuestas_http.RespuestaToken;
@@ -85,7 +87,12 @@ public interface API {
     @POST("/api/imagenes/clientes")
     Call<ResponseBody> subirImagenCliente(
             @Part MultipartBody.Part imagen
-            //@Part("description") RequestBody descripcion
+    );
+
+    @Multipart
+    @POST("/api/imagenes/restaurantes")
+    Call<ResponseBody> subirImagenRestaurante(
+            @Part MultipartBody.Part imagen
     );
 
     @Multipart
@@ -107,6 +114,13 @@ public interface API {
             @Body Cliente cliente
     );
 
+    @PUT("/restaurantes/{id}")
+    Call<ResponseBody> actualizarRestaurante(
+            @Path("id") int id,
+            @Header("Authorization") String token,
+            @Body Restaurante restaurante
+    );
+
     @PUT("/usuarios/{id}")
     Call<ResponseBody> actualizarUsuario(
             @Path("id") int id,
@@ -114,10 +128,23 @@ public interface API {
             @Body Usuario usuario
     );
 
+    @PUT("/platos/{id}")
+    Call<Plato> actualizarPlato(
+            @Path("id") int id,
+            @Header("Authorization") String token,
+            @Body Plato plato
+    );
+
     @POST("/platos")
     Call<Plato> crearPlato(
             @Header("Authorization") String token,
             @Body PeticionCrearPlato plato
+    );
+
+    @DELETE("/platos/{id}")
+    Call<ResponseBody> eliminarPlato(
+            @Path("id") int id,
+            @Header("Authorization") String token
     );
 
     @POST("/ingredientes")
@@ -129,5 +156,11 @@ public interface API {
     @GET("/ingredientes")
     Call<List<Ingrediente>> obtenerIngredientes(
             @Header("Authorization") String token
+    );
+
+    @POST("/valoraciones")
+    Call<Valoracion> insertarValoracion(
+            @Header("Authorization") String token,
+            @Body PeticionInsertarValoracion valoracion
     );
 }

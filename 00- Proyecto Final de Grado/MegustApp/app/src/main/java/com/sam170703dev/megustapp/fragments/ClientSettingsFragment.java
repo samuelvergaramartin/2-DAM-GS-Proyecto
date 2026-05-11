@@ -24,6 +24,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.loader.content.CursorLoader;
@@ -49,17 +50,41 @@ import retrofit2.Response;
 
 public class ClientSettingsFragment extends Fragment {
 
+    private static final String ARG_ID_CLIENTE = "id_cliente";
+    private static final String ARG_ID_USUARIO = "id_usuario";
     private int idCliente;
+    private int idUsuario;
     private Cliente cliente;
-    public ClientSettingsFragment(int idCliente, Toolbar toolbar) {
+
+    public ClientSettingsFragment() {
+        // Constructor vacío obligatorio
+    }
+    public ClientSettingsFragment(int idCliente, int idUsuario, Toolbar toolbar) {
         this.idCliente = idCliente;
+        this.idUsuario = idUsuario;
         cliente = null;
         toolbar.setTitle("Ajustes");
+    }
+
+    public static ClientSettingsFragment newInstance(int idCliente, int idUsuario) {
+        ClientSettingsFragment fragment = new ClientSettingsFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_ID_CLIENTE, idCliente);
+        args.putInt(ARG_ID_USUARIO, idUsuario);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        if(activity.getSupportActionBar() != null) activity.getSupportActionBar().setTitle("Ajustes");
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            idCliente = getArguments().getInt(ARG_ID_CLIENTE);
+            idUsuario = getArguments().getInt(ARG_ID_USUARIO);
+        }
         View view = inflater.inflate(R.layout.fragment_client_settings, container, false);
 
         final ImageView fotoPerfil = view.findViewById(R.id.foto_perfil_fragment_client_settings);
@@ -104,7 +129,7 @@ public class ClientSettingsFragment extends Fragment {
                     .load(response.body().getFotoPerfil())
                     .into(fotoPerfil);
                 }
-                else Toast.makeText(getContext(), "Error al cargar los datos del cliente", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(getContext(), "Error al cargar los datos del cliente " + idCliente, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -141,7 +166,7 @@ public class ClientSettingsFragment extends Fragment {
                             cuentaUsuario.setEmail(cliente.getEmail());
                             cuentaUsuario.setClave(cliente.getClave(), false);
 
-                            api.actualizarUsuario(idCliente, "Bearer " + tokenCliente, cuentaUsuario).enqueue(new Callback<ResponseBody>() {
+                            api.actualizarUsuario(idUsuario, "Bearer " + tokenCliente, cuentaUsuario).enqueue(new Callback<ResponseBody>() {
                                 @Override
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response2) {
                                     if(response2.isSuccessful()) Toast.makeText(getContext(), "Cambios guardados satisfactoriamente", Toast.LENGTH_SHORT).show();

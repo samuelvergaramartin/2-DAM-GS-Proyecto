@@ -4,12 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.sam170703dev.megustapp.R;
 import com.sam170703dev.megustapp.api.APIRest;
@@ -18,39 +17,75 @@ import com.sam170703dev.megustapp.entidades.Plato;
 
 import java.util.ArrayList;
 
-public class RestaurantMenuAdapter extends ArrayAdapter<Plato> {
-
+public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuViewHolder> implements View.OnClickListener{
     private ArrayList<Plato> platos;
-    public RestaurantMenuAdapter(@NonNull Context context, ArrayList<Plato> platos) {
-        super(context, R.layout.opc_menu_restaurant, platos);
+    private View.OnClickListener listener;
+
+    public RestaurantMenuAdapter(ArrayList<Plato> platos) {
         this.platos = platos;
+    }
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(listener != null) {
+            listener.onClick(v);
+        }
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View elemento = LayoutInflater.from(getContext()).inflate(R.layout.opc_menu_restaurant, parent, false);
+    public RestaurantMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View pagina = LayoutInflater.from(parent.getContext()).inflate(R.layout.opc_menu_restaurant, parent, false);
+        pagina.setOnClickListener(this);
+
+        RestaurantMenuViewHolder rmvh = new RestaurantMenuViewHolder(pagina);
+
+        return rmvh;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RestaurantMenuViewHolder holder, int position) {
+        Plato plato = platos.get(position);
+        holder.bindPlato(plato, holder.itemView.getContext());
+    }
+
+    @Override
+    public int getItemCount() {
+        return platos.size();
+    }
+}
+
+class RestaurantMenuViewHolder extends RecyclerView.ViewHolder {
+
+    private ImageView imagenPlato;
+    private TextView nombrePlato;
+    private TextView precioPlato;
+    private TextView ingredientesPlato;
+    public RestaurantMenuViewHolder(@NonNull View itemView) {
+        super(itemView);
+
+        imagenPlato = itemView.findViewById(R.id.imagen_plato_opc_menu_restaurant);
+        nombrePlato = itemView.findViewById(R.id.nombre_plato_opc_menu_restaurant);
+        precioPlato = itemView.findViewById(R.id.precio_plato_opc_menu_restaurant);
+        ingredientesPlato = itemView.findViewById(R.id.ingredientes_plato_opc_menu_restaurant);
+    }
+
+    public void bindPlato(Plato plato, Context context) {
         String ingredientes = "";
+        APIRest.cargarImagen(context, plato.getImagen(), imagenPlato);
+        nombrePlato.setText(plato.getNombre());
+        precioPlato.setText(String.valueOf(plato.getPrecio()) + " €");
 
-        ImageView imagenPlato = elemento.findViewById(R.id.imagen_plato_opc_menu_restaurant);
-        APIRest.cargarImagen(getContext(), platos.get(position).getImagen(), imagenPlato);
-
-        TextView nombrePlato = elemento.findViewById(R.id.nombre_plato_opc_menu_restaurant);
-        nombrePlato.setText(platos.get(position).getNombre());
-
-        TextView precioPlato = elemento.findViewById(R.id.precio_plato_opc_menu_restaurant);
-        precioPlato.setText(String.valueOf(platos.get(position).getPrecio()) + " €");
-
-        TextView ingredientesPlato = elemento.findViewById(R.id.ingredientes_plato_opc_menu_restaurant);
-
-        for(Ingrediente ingrediente: platos.get(position).getIngredientes()) {
+        for(Ingrediente ingrediente: plato.getIngredientes()) {
             ingredientes+= ingrediente.getNombre() + ", ";
         }
 
         ingredientes = ingredientes.substring(0, ingredientes.length() - 2);
 
         ingredientesPlato.setText(ingredientes);
-
-        return elemento;
     }
 }

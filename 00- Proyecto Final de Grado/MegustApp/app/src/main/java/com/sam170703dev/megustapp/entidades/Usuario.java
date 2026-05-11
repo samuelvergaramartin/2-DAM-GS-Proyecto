@@ -50,4 +50,13 @@ public class Usuario implements Serializable {
             throw new RuntimeException("Error al generar SHA-256", e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", clave='" + clave + '\'' +
+                '}';
+    }
 }

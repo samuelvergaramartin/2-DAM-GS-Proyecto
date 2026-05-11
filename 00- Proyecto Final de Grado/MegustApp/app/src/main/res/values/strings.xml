@@ -88,4 +88,16 @@
     <string name="subir_imagen_plato">Subir imágen</string>
     <string name="aplicar_cambios">Aplicar cambios</string>
     <string name="cancelar">Cancelar</string>
+    <string name="sin_valoraciones">No hay reseñas registradas</string>
+    <string name="valoraciones_restaurante">Valoraciones del restaurante</string>
+    <string name="agregar_valoracion">Añadir reseña</string>
+    <string name="nueva_valoracion">Nueva reseña</string>
+    <string name="escribir_valoracion">Escribe tu reseña</string>
+    <string name="finalizar">Finalizar</string>
+    <string name="malaga">Málaga</string>
+    <string name="sevilla">Sevilla</string>
+    <string name="cordoba">Córdoba</string>
+    <string name="madrid">Madrid</string>
+    <string name="editar_ingrediente">Editar ingrediente</string>
+    <string name="eliminar_ingrediente">Eliminar ingrediente</string>
 </resources>
