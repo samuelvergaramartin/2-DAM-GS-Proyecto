@@ -78,6 +78,7 @@
                 android:layout_marginStart="10dp"
                 android:textColor="@color/white"
                 app:chipBackgroundColor="@color/electric_blue"
+                app:checkedIconTint="@color/white"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,6 +103,7 @@
                 app:chipBackgroundColor="@color/electric_blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:checkedIconTint="@color/white"
                 android:text="@string/malaga"/>
 
             <com.google.android.material.chip.Chip
@@ -111,6 +113,7 @@
                 app:chipBackgroundColor="@color/electric_blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:checkedIconTint="@color/white"
                 android:text="@string/sevilla"/>
 
             <com.google.android.material.chip.Chip
@@ -119,6 +122,7 @@
                 android:textColor="@color/white"
                 app:chipBackgroundColor="@color/electric_blue"
                 android:layout_width="wrap_content"
+                app:checkedIconTint="@color/white"
                 android:layout_height="wrap_content"
                 android:text="@string/cordoba"/>
 
@@ -128,6 +132,7 @@
                 android:textColor="@color/white"
                 app:chipBackgroundColor="@color/electric_blue"
                 android:layout_width="wrap_content"
+                app:checkedIconTint="@color/white"
                 android:layout_height="wrap_content"
                 android:text="@string/madrid"/>
 
